@@ -18,7 +18,7 @@ import numpy as np
 import Scripts.Gammas as Gammas
 import Scripts.Neighbors as Neighbors
 
-def Triangulation(p, tt, f, g, t, c, cho):
+def Triangulation(p, tt, f, g, t, c, cho, r):
     # Wave Equation 2D implemented on Triangulations
     # 
     # This routine calculates an approximation to the solution of wave equation in 2D using a Generalized Finite Differences scheme on triangulations.
@@ -56,11 +56,11 @@ def Triangulation(p, tt, f, g, t, c, cho):
         for k in np.arange(t):                                                      # For each time step.
             for i in np.arange(m):                                                  # For each of the nodes.
                 if p[i,2] == 1:                                                     # If the node is in the boundary.
-                    u_ap[i, k] = f(p[i, 0], p[i, 1], T[k], c, cho)                  # The boundary condition is assigned.
+                    u_ap[i, k] = f(p[i, 0], p[i, 1], T[k], c, cho, r)               # The boundary condition is assigned.
   
     # Initial condition
     for i in np.arange(m):                                                          # For each of the nodes.
-        u_ap[i, 0] = f(p[i, 0], p[i, 1], T[0], c, cho)                              # The initial condition is assigned.
+        u_ap[i, 0] = f(p[i, 0], p[i, 1], T[0], c, cho, r)                           # The initial condition is assigned.
     
     # Neighbor search for all the nodes.
     vec = Neighbors.Triangulation(p, tt, 9)                                         # Neighbor search with the proper routine.
@@ -80,7 +80,7 @@ def Triangulation(p, tt, f, g, t, c, cho):
                     utemp = utemp + cdt*Gamma[i,j]*u_ap[int(vec[i, j-1]), k-1]      # utemp computation with the neighbors.
                 utemp = utemp + cdt*Gamma[i,0]*u_ap[i, k-1]                         # The central node is added to the approximation.
                 u_ap[i,k] = u_ap[i, k-1] + (1/2)*utemp + \
-                            dt*g(p[i, 0], p[i, 1], T[k], c, cho)                    # The second time step is completed.
+                            dt*g(p[i, 0], p[i, 1], T[k], c, cho, r)                 # The second time step is completed.
     
     ## Other time steps computation.
     for k in np.arange(2,t):                                                        # For all the other time steps.
@@ -96,11 +96,11 @@ def Triangulation(p, tt, f, g, t, c, cho):
     # Theoretical Solution
     for k in np.arange(t):                                                          # For all the time steps.
         for i in np.arange(m):                                                      # For each of the nodes.
-            u_ex[i,k] = f(p[i,0], p[i,1], T[k], c, cho)                             # The theoretical solution is computed.
+            u_ex[i,k] = f(p[i,0], p[i,1], T[k], c, cho, r)                          # The theoretical solution is computed.
 
     return u_ap, u_ex, vec
 
-def Cloud(p, f, g, t, c, cho):
+def Cloud(p, f, g, t, c, cho, r):
     # Wave Equation 2D implemented on Unstructured Clouds of Points
     # 
     # This routine calculates an approximation to the solution of wave equation in 2D using a Generalized Finite Differences scheme on unstructured clouds of points.
@@ -137,11 +137,11 @@ def Cloud(p, f, g, t, c, cho):
         for k in np.arange(t):                                                      # For each time step.
             for i in np.arange(m):                                                  # For each of the nodes.
                 if p[i,2] == 1:                                                     # If the node is in the boundary.
-                    u_ap[i, k] = f(p[i, 0], p[i, 1], T[k], c, cho)                  # The boundary condition is assigned.
+                    u_ap[i, k] = f(p[i, 0], p[i, 1], T[k], c, cho, r)               # The boundary condition is assigned.
   
     # Initial condition
     for i in np.arange(m):                                                          # For each of the nodes.
-        u_ap[i, 0] = f(p[i, 0], p[i, 1], T[0], c, cho)                              # The initial condition is assigned.
+        u_ap[i, 0] = f(p[i, 0], p[i, 1], T[0], c, cho, r)                           # The initial condition is assigned.
     
     # Neighbor search for all the nodes.
     vec = Neighbors.Cloud(p, 9)                                                     # Neighbor search with the proper routine.
@@ -161,7 +161,7 @@ def Cloud(p, f, g, t, c, cho):
                     utemp = utemp + cdt*Gamma[i,j]*u_ap[int(vec[i, j-1]), k-1]      # utemp computation with the neighbors.
                 utemp = utemp + cdt*Gamma[i,0]*u_ap[i, k-1]                         # The central node is added to the approximation.
                 u_ap[i,k] = u_ap[i, k-1] + (1/2)*utemp + \
-                            dt*g(p[i, 0], p[i, 1], T[k], c, cho)                    # The second time step is completed.
+                            dt*g(p[i, 0], p[i, 1], T[k], c, cho, r)                 # The second time step is completed.
     
     ## Other time steps computation.
     for k in np.arange(2,t):                                                        # For all the other time steps.
@@ -177,6 +177,6 @@ def Cloud(p, f, g, t, c, cho):
     # Theoretical Solution
     for k in np.arange(t):                                                          # For all the time steps.
         for i in np.arange(m):                                                      # For each of the nodes.
-            u_ex[i,k] = f(p[i,0], p[i,1], T[k], c, cho)                             # The theoretical solution is computed.
+            u_ex[i,k] = f(p[i,0], p[i,1], T[k], c, cho, r)                          # The theoretical solution is computed.
 
     return u_ap, u_ex, vec
