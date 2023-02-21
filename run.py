@@ -20,7 +20,6 @@ import Scripts.Graph as Graph
 import Scripts.Errors as Errors
 import Wave_2D
 
-
 # Wave coefficient
 c = 1
 
@@ -28,7 +27,7 @@ c = 1
 t = 2000
 
 # Approximation Type
-cho = 0
+cho = 1
 
 # Names of the regions
 regions = ['CAB','CUA','CUI','DOW','ENG','GIB','HAB','MIC','PAT','ZIR']
@@ -96,10 +95,10 @@ for reg in regions:
             t = 10000
         
         # All data is loaded from the file
-        #mat = loadmat('Data/Clouds/' + region + '_' + cloud + '.mat')
-        mat = loadmat('Data/Clouds_Holes/' + regi + '_' + cloud + '.mat')
-        noc = 'Results/Clouds_Holes/' + regi + '_' + cloud + '.mp4'
-        nob = 'Results/Triangulations_Holes/' + regi + '_' + cloud + '.mp4'
+        mat = loadmat('Data/Clouds/' + regi + '_' + cloud + '.mat')
+        #mat = loadmat('Data/Clouds_Holes/' + regi + '_' + cloud + '.mat')
+        noc = 'Results/Clouds/' + regi + '_' + cloud + '.mp4'
+        nob = 'Results/Triangulations/' + regi + '_' + cloud + '.mp4'
 
         # Node data is saved
         p   = mat['p']
@@ -109,18 +108,15 @@ for reg in regions:
 
         # Wave Equation in 2D computed on a unstructured cloud of points.
         u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r)
-        #er = Errors.Cloud_Transient(p, vec, u_ap, u_ex)
-        #print('The maximum mean square error in the unstructured cloud of points is: ', er.max())
+        er = Errors.Cloud_Transient(p, vec, u_ap, u_ex)
+        print('The maximum mean square error in the unstructured cloud of points is: ', er.max())
         #Graph.Cloud_Transient(p, tt, u_ap, u_ex)
-        #Graph.Cloud_Transient_1(p, tt, u_ap)
-        Graph.Cloud_Transient_sav_1(p, tt, u_ap, noc)
+        Graph.Cloud_Transient_sav(p, tt, u_ap, u_ex, noc)
 
         u_ap, u_ex, vec = Wave_2D.Triangulation(p, tt, fWAV, gWAV, t, c, cho, r)
-        #er = Errors.Cloud_Transient(p, vec, u_ap, u_ex)
-        #print('The maximum mean square error in the triangulation is: ', er.max())
+        er = Errors.Cloud_Transient(p, vec, u_ap, u_ex)
+        print('The maximum mean square error in the triangulation is: ', er.max())
         #Graph.Cloud_Transient(p, tt, u_ap, u_ex)
-        #Graph.Cloud_Transient_1(p, tt, u_ap)
-        Graph.Cloud_Transient_sav_1(p, tt, u_ap, nob)
+        Graph.Cloud_Transient_sav(p, tt, u_ap, u_ex, nob)
 
         #Graph.Error(er)
-        #Graph.Cloud_Transient_Vid(p, tt, u_ap, u_ex, 'CAB1')
