@@ -29,10 +29,10 @@ t = 2000
 cho = 0
 
 # Names of the regions
-regions = ['CAB','CUA','CUI','DOW','ENG','GIB','HAB','MIC','PAT','ZIR']
+regions = ['CANAL']#['CAB','CUA','CUI','DOW','ENG','GIB','HAB','MIC','PAT','ZIR']
 
 # Sizes of the clouds
-sizes = ['1', '2', '3']
+sizes = ['3']#['1', '2', '3']
 
 # Boundary conditions
 
@@ -74,6 +74,8 @@ for reg in regions:
         r = np.array([0.8, 0.8])
     if regi == 'ZIR':
         r = np.array([0.7, 0.4])
+    if regi == 'CANAL':
+        r = np.array([0.05, 0.5])
 
     for me in sizes:
         cloud = me
@@ -102,9 +104,9 @@ for reg in regions:
 
         # Wave Equation in 2D computed on a unstructured cloud of points.
         u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r)
-        #Graph.Cloud_Transient_1(p, tt, u_ap)
+        Graph.Cloud_Transient_1(p, tt, u_ap)
         Graph.Cloud_Transient_sav_1(p, tt, u_ap, noc)
 
         u_ap, u_ex, vec = Wave_2D.Triangulation(p, tt, fWAV, gWAV, t, c, cho, r)
-        #Graph.Cloud_Transient_1(p, tt, u_ap)
+        Graph.Cloud_Transient_1(p, tt, u_ap)
         Graph.Cloud_Transient_sav_1(p, tt, u_ap, nob)
