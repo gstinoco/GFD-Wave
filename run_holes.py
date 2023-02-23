@@ -106,9 +106,9 @@ for reg in regions:
 
         # Wave Equation in 2D computed on a unstructured cloud of points.
         u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r)
-        Graph.Cloud_Transient_1(p, tt, u_ap)
+        #Graph.Cloud_Transient_1(p, tt, u_ap)
         Graph.Cloud_Transient_sav_1(p, tt, u_ap, noc)
 
         u_ap, u_ex, vec = Wave_2D.Triangulation(p, tt, fWAV, gWAV, t, c, cho, r)
-        Graph.Cloud_Transient_1(p, tt, u_ap)
+        #Graph.Cloud_Transient_1(p, tt, u_ap)
         Graph.Cloud_Transient_sav_1(p, tt, u_ap, nob)
