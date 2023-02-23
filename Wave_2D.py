@@ -45,7 +45,7 @@ def Triangulation(p, tt, f, g, t, c, cho, r):
 
     # Variable initialization
     m    = len(p[:,0])                                                              # The total number of nodes is calculated.
-    T    = np.linspace(0,1,t)                                                       # Time discretization.
+    T    = np.linspace(0,3,t)                                                       # Time discretization.
     dt   = T[1] - T[0]                                                              # dt computation.
     u_ap = np.zeros([m,t])                                                          # u_ap initialization with zeros.
     u_ex = np.zeros([m,t])                                                          # u_ex initialization with zeros.
@@ -126,7 +126,7 @@ def Cloud(p, f, g, t, c, cho, r):
 
     # Variable initialization
     m    = len(p[:,0])                                                              # The total number of nodes is calculated.
-    T    = np.linspace(0,1,t)                                                       # Time discretization.
+    T    = np.linspace(0,3,t)                                                       # Time discretization.
     dt   = T[1] - T[0]                                                              # dt computation.
     u_ap = np.zeros([m,t])                                                          # u_ap initialization with zeros.
     u_ex = np.zeros([m,t])                                                          # u_ex initialization with zeros.
