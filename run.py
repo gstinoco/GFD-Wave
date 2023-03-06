@@ -1,18 +1,20 @@
-# All the codes presented below were developed by:
-#   Dr. Gerardo Tinoco Guerrero
-#   Universidad Michoacana de San Nicolás de Hidalgo
-#   gerardo.tinoco@umich.mx
-#
-# With the funding of:
-#   National Council of Science and Technology, CONACyT (Consejo Nacional de Ciencia y Tecnología, CONACyT). México.
-#   Coordination of Scientific Research, CIC-UMSNH (Coordinación de la Investigación Científica de la Universidad Michoacana de San Nicolás de Hidalgo, CIC-UMSNH). México
-#   Aula CIMNE Morelia. México
-#
-# Date:
-#   January, 2023.
-#
-# Last Modification:
-#   February, 2023.
+"""
+All the codes presented below were developed by:
+    Dr. Gerardo Tinoco Guerrero
+    Universidad Michoacana de San Nicolás de Hidalgo
+    gerardo.tinoco@umich.mx
+
+With the funding of:
+    National Council of Science and Technology, CONACyT (Consejo Nacional de Ciencia y Tecnología, CONACyT). México.
+    Coordination of Scientific Research, CIC-UMSNH (Coordinación de la Investigación Científica de la Universidad Michoacana de San Nicolás de Hidalgo, CIC-UMSNH). México
+    Aula CIMNE-Morelia. México
+
+Date:
+    November, 2022.
+
+Last Modification:
+    March, 2023.
+"""
 
 import numpy as np
 from scipy.io import loadmat
@@ -23,19 +25,16 @@ import Wave_2D
 # Wave coefficient
 c = 1
 
-# Number of Time Steps
-t = 2000
-
 # Approximation Type
 cho = 1
 
 # Names of the regions
-regions = ['CAB','CUA','CUI','DOW','ENG','GIB','HAB','MIC','PAT','ZIR']
+regions = ['CAB']#,'CUA','CUI','DOW','ENG','GIB','HAB','MIC','PAT','ZIR']
 
 # Sizes of the clouds
-sizes = ['1', '2', '3']
+sizes = ['2']#, '2', '3']
 
- # Boundary conditions
+# Boundary conditions
 # The boundary conditions are defined as
 #     f = \cos(\pi ct\sqrt{2})\sin(\pi x)\sin(\pi y)
 #
@@ -107,16 +106,14 @@ for reg in regions:
             tt -= 1
 
         # Wave Equation in 2D computed on a unstructured cloud of points.
-        u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r)
-        er = Errors.Cloud_Transient(p, vec, u_ap, u_ex)
-        print('The maximum mean square error in the unstructured cloud of points is: ', er.max())
+        u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, triangulation = True, tt = tt)
+        er = Errors.Cloud(p, vec, u_ap, u_ex)
+        print('The maximum mean square error is: ', er.max())
         #Graph.Cloud_Transient(p, tt, u_ap, u_ex)
-        Graph.Cloud_Transient_sav(p, tt, u_ap, u_ex, noc)
+        #Graph.Cloud_Transient_sav(p, tt, u_ap, u_ex, nob)
 
-        u_ap, u_ex, vec = Wave_2D.Triangulation(p, tt, fWAV, gWAV, t, c, cho, r)
-        er = Errors.Cloud_Transient(p, vec, u_ap, u_ex)
-        print('The maximum mean square error in the triangulation is: ', er.max())
-        #Graph.Cloud_Transient(p, tt, u_ap, u_ex)
-        Graph.Cloud_Transient_sav(p, tt, u_ap, u_ex, nob)
+        u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, implicit=True, triangulation=True, tt=tt)
+        er = Errors.Cloud(p, vec, u_ap, u_ex)
+        print('The maximum mean square error is: ', er.max())
 
         #Graph.Error(er)
