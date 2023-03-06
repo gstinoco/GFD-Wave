@@ -449,7 +449,7 @@ def Cloud_Transient_1(p, tt, u_ap):
     step   = int(np.ceil(t/50))
     min    = u_ap.min()
     max    = u_ap.max()
-    T      = np.linspace(0,1,t)
+    T      = np.linspace(0,3,t)
 
     for k in np.arange(0,t,step):
         fig, (ax1) = plt.subplots(1, 1, subplot_kw = {"projection": "3d"}, figsize = (10, 5))
@@ -475,10 +475,10 @@ def Cloud_Transient_sav_1(p, tt, u_ap, nom):
     if tt.min() == 1:
         tt -= 1
     t      = len(u_ap[0,:])
-    step   = int(np.ceil(t/50))
+    step   = int(np.ceil(t/100))
     min    = u_ap.min()
     max    = u_ap.max()
-    T      = np.linspace(0,1,t)
+    T      = np.linspace(0,3,t)
     frames = []
 
     for k in np.arange(0,t,step):

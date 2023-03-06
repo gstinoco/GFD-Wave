@@ -29,10 +29,10 @@ t = 2000
 cho = 0
 
 # Names of the regions
-regions = ['CAB','CUA','CUI','DOW','ENG','GIB','HAB','MIC','PAT','ZIR']
+regions = ['CANAL']#['CAB','CUA','CUI','DOW','ENG','GIB','HAB','MIC','PAT','ZIR']
 
 # Sizes of the clouds
-sizes = ['1', '2', '3']
+sizes = ['1', '2', '3','4']
 
 # Boundary conditions
 
@@ -74,19 +74,23 @@ for reg in regions:
         r = np.array([0.8, 0.8])
     if regi == 'ZIR':
         r = np.array([0.7, 0.4])
+    if regi == 'CANAL':
+        r = np.array([0.3, 0.8])
 
     for me in sizes:
         cloud = me
 
         # Number of Time Steps
         if cloud == '1':
-            t = 400
-        elif cloud == '2':
             t = 1000
+        elif cloud == '2':
+            t = 5000
         elif cloud == '3':
-            t = 2000
-        else:
             t = 10000
+        elif cloud == '4':
+            t = 15000
+        else:
+            t = 20000
         
         # All data is loaded from the file
         #mat = loadmat('Data/Clouds/' + region + '_' + cloud + '.mat')
