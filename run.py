@@ -18,6 +18,7 @@ Last Modification:
 
 import numpy as np
 from scipy.io import loadmat
+from scipy.io import savemat
 import Scripts.Graph as Graph
 import Scripts.Errors as Errors
 import Wave_2D
@@ -29,10 +30,10 @@ c = 1
 cho = 1
 
 # Names of the regions
-regions = ['CAB']#,'CUA','CUI','DOW','ENG','GIB','HAB','MIC','PAT','ZIR']
+regions = ['CUA', 'ENG', 'HAB','PAT'] #['CAB','CUA','CUI','DOW','ENG','GIB','HAB','MIC','PAT','ZIR']
 
 # Sizes of the clouds
-sizes = ['2']#, '2', '3']
+sizes = ['1', '2', '3']
 
 # Boundary conditions
 # The boundary conditions are defined as
@@ -85,19 +86,19 @@ for reg in regions:
 
         # Number of Time Steps
         if cloud == '1':
-            t = 400
+            t = 300
         elif cloud == '2':
-            t = 1000
+            t = 300
         elif cloud == '3':
-            t = 2000
+            t = 300
         else:
             t = 10000
         
         # All data is loaded from the file
         mat = loadmat('Data/Clouds/' + regi + '_' + cloud + '.mat')
-        #mat = loadmat('Data/Clouds_Holes/' + regi + '_' + cloud + '.mat')
         noc = 'Results/Clouds/' + regi + '_' + cloud + '.mp4'
         nob = 'Results/Triangulations/' + regi + '_' + cloud + '.mp4'
+        nom = 'Results/' + regi + '_' + cloud
 
         # Node data is saved
         p   = mat['p']
@@ -106,14 +107,42 @@ for reg in regions:
             tt -= 1
 
         # Wave Equation in 2D computed on a unstructured cloud of points.
-        u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, triangulation = True, tt = tt)
+        u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, implicit=True, triangulation=True, tt=tt, lam=1.00)
         er = Errors.Cloud(p, vec, u_ap, u_ex)
-        print('The maximum mean square error is: ', er.max())
+        #print('The maximum mean square error with the explicit scheme is: ', ere.max())
         #Graph.Cloud_Transient(p, tt, u_ap, u_ex)
-        #Graph.Cloud_Transient_sav(p, tt, u_ap, u_ex, nob)
+        #Graph.Cloud_Static_sav(p, tt, u_ap, u_ex, nom)
+        mdic = {'u_ap': u_ap, 'er': er}
+        savemat('Results/Paper/' + regi + '_' + cloud + '_100.mat', mdic)
 
-        u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, implicit=True, triangulation=True, tt=tt)
+        u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, implicit=True, triangulation=True, tt=tt, lam=0.75)
         er = Errors.Cloud(p, vec, u_ap, u_ex)
-        print('The maximum mean square error is: ', er.max())
+        #print('The maximum mean square error with the implicit scheme (0.50) is: ', er50.max())
+        #Graph.Cloud_Transient(p, tt, u_ap, u_ex)
+        #Graph.Cloud_Static_sav(p, tt, u_ap, u_ex, nom)
+        mdic = {'u_ap': u_ap, 'er': er}
+        savemat('Results/Paper/' + regi + '_' + cloud + '_75.mat', mdic)
 
-        #Graph.Error(er)
+        u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, implicit=True, triangulation=True, tt=tt, lam=0.50)
+        er = Errors.Cloud(p, vec, u_ap, u_ex)
+        #print('The maximum mean square error with the implicit scheme (0.50) is: ', er50.max())
+        #Graph.Cloud_Transient(p, tt, u_ap, u_ex)
+        #Graph.Cloud_Static_sav(p, tt, u_ap, u_ex, nom)
+        mdic = {'u_ap': u_ap, 'er': er}
+        savemat('Results/Paper/' + regi + '_' + cloud + '_50.mat', mdic)
+
+        u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, implicit=True, triangulation=True, tt=tt, lam=0.25)
+        er = Errors.Cloud(p, vec, u_ap, u_ex)
+        #print('The maximum mean square error with the implicit scheme (0.50) is: ', er50.max())
+        #Graph.Cloud_Transient(p, tt, u_ap, u_ex)
+        #Graph.Cloud_Static_sav(p, tt, u_ap, u_ex, nom)
+        mdic = {'u_ap': u_ap, 'er': er}
+        savemat('Results/Paper/' + regi + '_' + cloud + '_25.mat', mdic)
+
+        u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, implicit=True, triangulation=True, tt=tt, lam=0.00)
+        er = Errors.Cloud(p, vec, u_ap, u_ex)
+        #print('The maximum mean square error with the implicit scheme (0.50) is: ', er50.max())
+        #Graph.Cloud_Transient(p, tt, u_ap, u_ex)
+        #Graph.Cloud_Static_sav(p, tt, u_ap, u_ex, nom)
+        mdic = {'u_ap': u_ap, 'er': er}
+        savemat('Results/Paper/' + regi + '_' + cloud + '_00.mat', mdic)

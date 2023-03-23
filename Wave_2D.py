@@ -59,7 +59,7 @@ def Cloud(p, f, g, t, c, cho, r, triangulation = False, tt = [], implicit = Fals
     # Variable initialization
     m    = len(p[:,0])                                                              # The total number of nodes is calculated.
     nvec = 8                                                                        # Maximum number of neighbors for each node.
-    T    = np.linspace(0,1,t)                                                       # Time discretization.
+    T    = np.linspace(0,2,t)                                                       # Time discretization.
     dt   = T[1] - T[0]                                                              # dt computation.
     u_ap = np.zeros([m,t])                                                          # u_ap initialization with zeros.
     u_ex = np.zeros([m,t])                                                          # u_ex initialization with zeros.
@@ -86,25 +86,25 @@ def Cloud(p, f, g, t, c, cho, r, triangulation = False, tt = [], implicit = Fals
     L = np.vstack([[0], [0], [2*cdt], [0], [2*cdt]])                                # The values of the differential operator are assigned.
     K = Gammas.Cloud(p, vec, L)                                                     # K computation with the required Gammas.
     if implicit == False:                                                           # For the explicit scheme.
-        K1 = np.identity(m) + (1/2)*K                                               # Explicit formulation of K for k = 1.
+        K1 = (np.identity(m) + (1/2)*K)                                             # Explicit formulation of K for k = 1.
         K2 = (2*np.identity(m) + K)                                                 # Explicit formulation of K for k = 2,...,t.
     else:                                                                           # For the implicit scheme.
-        K1 = np.linalg.pinv(np.identity(m) - (1-lam)*(1/2)*K)\
-                                @(np.identity(m) + (1/2)*K)                         # Implicit formulation of K for k = 1.
-        K2 = np.linalg.pinv(np.identity(m) - (1-lam)*K)\
-                                @(2*np.identity(m) + K)                             # Implicit formulation of K for k = 2,...,t.
+        K1 = np.linalg.pinv(np.identity(m) - (1-lam)*(1/2)*K)                       # Implicit formulation of K for k = 1.
+        K2 = (np.identity(m) + lam*(1/2)*K)
+        K3 = np.linalg.pinv(np.identity(m) - (1-lam)*K)                             # Implicit formulation of K for k = 2,...,t.
+        K4 = (2*np.identity(m) + lam*K)
 
     # A Generalized Finite Differences Method
     ## Second time step computation.
     for k in np.arange(1,2):                                                        # For k = 1.
-        un = K1@u_ap[:,k-1] + dt*g(p[:,0], p[:,1], T[k], c, cho, r)                 # The new time-level is computed.
+        un = K1@(K2@u_ap[:,k-1] + dt*g(p[:,0], p[:,1], T[k], c, cho, r))            # The new time-level is computed.
         for i in np.arange(m):                                                      # For all the nodes.
             if p[i,2] == 0:                                                         # If the node is an inner node.
                 u_ap[i,k] = un[i]                                                   # Save the computed solution.
     
     ## Other time steps computation.
     for k in np.arange(2,t):                                                        # For all the other time steps.
-        un = K2@u_ap[:,k-1] - u_ap[:,k-2]                                           # The new time-level is computed.
+        un = K3@(K4@u_ap[:,k-1] - u_ap[:,k-2])                                           # The new time-level is computed.
         for i in np.arange(m):                                                      # For all the nodes.
             if p[i,2] == 0:                                                         # If the node is an inner node.
                 u_ap[i,k] = un[i]                                                   # Save the computed solution.
