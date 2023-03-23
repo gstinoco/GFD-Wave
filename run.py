@@ -112,37 +112,41 @@ for reg in regions:
         #print('The maximum mean square error with the explicit scheme is: ', ere.max())
         #Graph.Cloud_Transient(p, tt, u_ap, u_ex)
         #Graph.Cloud_Static_sav(p, tt, u_ap, u_ex, nom)
-        mdic = {'u_ap': u_ap, 'er': er}
-        savemat('Results/Paper/' + regi + '_' + cloud + '_100.mat', mdic)
+        u_ap100 = u_ap
+        er100   = er
 
         u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, implicit=True, triangulation=True, tt=tt, lam=0.75)
         er = Errors.Cloud(p, vec, u_ap, u_ex)
         #print('The maximum mean square error with the implicit scheme (0.50) is: ', er50.max())
         #Graph.Cloud_Transient(p, tt, u_ap, u_ex)
         #Graph.Cloud_Static_sav(p, tt, u_ap, u_ex, nom)
-        mdic = {'u_ap': u_ap, 'er': er}
-        savemat('Results/Paper/' + regi + '_' + cloud + '_75.mat', mdic)
+        u_ap75 = u_ap
+        er75   = er
 
         u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, implicit=True, triangulation=True, tt=tt, lam=0.50)
         er = Errors.Cloud(p, vec, u_ap, u_ex)
         #print('The maximum mean square error with the implicit scheme (0.50) is: ', er50.max())
         #Graph.Cloud_Transient(p, tt, u_ap, u_ex)
         #Graph.Cloud_Static_sav(p, tt, u_ap, u_ex, nom)
-        mdic = {'u_ap': u_ap, 'er': er}
-        savemat('Results/Paper/' + regi + '_' + cloud + '_50.mat', mdic)
+        u_ap50 = u_ap
+        er50   = er
 
         u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, implicit=True, triangulation=True, tt=tt, lam=0.25)
         er = Errors.Cloud(p, vec, u_ap, u_ex)
         #print('The maximum mean square error with the implicit scheme (0.50) is: ', er50.max())
         #Graph.Cloud_Transient(p, tt, u_ap, u_ex)
         #Graph.Cloud_Static_sav(p, tt, u_ap, u_ex, nom)
-        mdic = {'u_ap': u_ap, 'er': er}
-        savemat('Results/Paper/' + regi + '_' + cloud + '_25.mat', mdic)
+        u_ap25 = u_ap
+        er25   = er
 
         u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, implicit=True, triangulation=True, tt=tt, lam=0.00)
         er = Errors.Cloud(p, vec, u_ap, u_ex)
         #print('The maximum mean square error with the implicit scheme (0.50) is: ', er50.max())
         #Graph.Cloud_Transient(p, tt, u_ap, u_ex)
         #Graph.Cloud_Static_sav(p, tt, u_ap, u_ex, nom)
-        mdic = {'u_ap': u_ap, 'er': er}
-        savemat('Results/Paper/' + regi + '_' + cloud + '_00.mat', mdic)
+        u_ap00 = u_ap
+        er00   = er
+
+
+        mdic = {'u_ap100': u_ap100, 'er100': er100, 'u_ap75': u_ap75, 'er75': er75, 'u_ap50': u_ap50, 'er50': er50, 'u_ap25': u_ap25, 'er25': er25, 'u_ap00': u_ap00, 'er00': er00}
+        savemat('Results/Paper/' + regi + '_' + cloud + '.mat', mdic)
