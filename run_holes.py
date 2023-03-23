@@ -16,6 +16,7 @@
 
 import numpy as np
 from scipy.io import loadmat
+from scipy.io import savemat
 import Scripts.Graph as Graph
 import Wave_2D
 
@@ -28,11 +29,11 @@ t = 2000
 # Approximation Type
 cho = 0
 
-# Names of the regions
-regions = ['CANAL']#['CAB','CUA','CUI','DOW','ENG','GIB','HAB','MIC','PAT','ZIR']
+# Name of the regions
+regions = ['CUA', 'ENG', 'HAB','PAT'] #['CAB','CUA','CUI','DOW','ENG','GIB','HAB','MIC','PAT','ZIR']
 
-# Sizes of the clouds
-sizes = ['1', '2', '3','4']
+# Size of the clouds
+sizes = ['3']#['1', '2', '3']
 
 # Boundary conditions
 
@@ -82,11 +83,11 @@ for reg in regions:
 
         # Number of Time Steps
         if cloud == '1':
-            t = 1000
+            t = 300
         elif cloud == '2':
-            t = 5000
+            t = 300
         elif cloud == '3':
-            t = 10000
+            t = 300
         elif cloud == '4':
             t = 15000
         else:
@@ -94,7 +95,7 @@ for reg in regions:
         
         # All data is loaded from the file
         #mat = loadmat('Data/Clouds/' + region + '_' + cloud + '.mat')
-        mat = loadmat('Data/Clouds_Holes/' + regi + '_' + cloud + '.mat')
+        mat = loadmat('Data/Holes/' + regi + '_' + cloud + '.mat')
         noc = 'Results/Clouds_Holes/' + regi + '_' + cloud + '.mp4'
         nob = 'Results/Triangulations_Holes/' + regi + '_' + cloud + '.mp4'
 
@@ -105,10 +106,12 @@ for reg in regions:
             tt -= 1
 
         # Wave Equation in 2D computed on a unstructured cloud of points.
-        u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r)
-        #Graph.Cloud_Transient_1(p, tt, u_ap)
-        Graph.Cloud_Transient_sav_1(p, tt, u_ap, noc)
+        u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, implicit=True, triangulation=True, tt=tt, lam=1.00)
+        u_ap100 = u_ap
 
-        u_ap, u_ex, vec = Wave_2D.Triangulation(p, tt, fWAV, gWAV, t, c, cho, r)
-        #Graph.Cloud_Transient_1(p, tt, u_ap)
-        Graph.Cloud_Transient_sav_1(p, tt, u_ap, nob)
+        u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, implicit=True, triangulation=True, tt=tt, lam=0.75)
+        u_ap75 = u_ap
+
+        tt  += 1
+        mdic = {'u_ap100': u_ap100, 'u_ap75': u_ap75, 'p': p, 'tt': tt}
+        savemat('Results/Paper/' + regi + '_' + cloud + '_3.mat', mdic)

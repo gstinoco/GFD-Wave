@@ -147,6 +147,6 @@ for reg in regions:
         u_ap00 = u_ap
         er00   = er
 
-
-        mdic = {'u_ap100': u_ap100, 'er100': er100, 'u_ap75': u_ap75, 'er75': er75, 'u_ap50': u_ap50, 'er50': er50, 'u_ap25': u_ap25, 'er25': er25, 'u_ap00': u_ap00, 'er00': er00}
+        tt  += 1
+        mdic = {'u_ex': u_ex, 'u_ap100': u_ap100, 'er100': er100, 'u_ap75': u_ap75, 'er75': er75, 'u_ap50': u_ap50, 'er50': er50, 'u_ap25': u_ap25, 'er25': er25, 'u_ap00': u_ap00, 'er00': er00, 'p': p, 'tt': tt}
         savemat('Results/Paper/' + regi + '_' + cloud + '.mat', mdic)
