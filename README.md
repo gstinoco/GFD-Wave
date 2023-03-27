@@ -53,6 +53,15 @@ All the codes presented were developed by:
     heriberto.arias@umich.mx<br>
     https://orcid.org/0000-0002-7641-8310
 
+  - Gabriela Pedraza Jiménes<br>
+    Universidad Michoacana de San Nicolás de Hidalgo<br>
+    2220157h@umich.mx<br>
+    https://orcid.org/0009-0002-8118-0260
+  
+  - Miguel Ángel Rodríguez Velázquez<br>
+    miguel.rodriguez@umich.mx<br>
+    https://orcid.org/0009-0009-7245-1517
+  
   - Ricardo Román Gutiérrez<br>
     Universidad Michoacana de San Nicolás de Hidalgo<br>
     ricardo.roman@umich.mx<br>
