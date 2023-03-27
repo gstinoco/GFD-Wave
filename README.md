@@ -59,6 +59,7 @@ All the codes presented were developed by:
     https://orcid.org/0009-0002-8118-0260
   
   - Miguel Ángel Rodríguez Velázquez<br>
+    Universidad Michoacana de San Nicolás de Hidalgo<br>
     miguel.rodriguez@umich.mx<br>
     https://orcid.org/0009-0009-7245-1517
   
