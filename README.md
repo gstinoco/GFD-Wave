@@ -53,7 +53,7 @@ All the codes presented were developed by:
     heriberto.arias@umich.mx<br>
     https://orcid.org/0000-0002-7641-8310
 
-  - Gabriela Pedraza Jiménes<br>
+  - Gabriela Pedraza Jiménez<br>
     Universidad Michoacana de San Nicolás de Hidalgo<br>
     2220157h@umich.mx<br>
     https://orcid.org/0009-0002-8118-0260
