@@ -351,7 +351,7 @@ def Cloud_Transient_sav(p, tt, u_ap, u_ex, nom):
 
     for k in np.arange(0,t,step):
         fig, (ax1, ax2) = plt.subplots(1, 2, subplot_kw = {"projection": "3d"}, figsize = (8, 4))
-        tin = float(T[k])
+        tin = float(T[k]*3)
         plt.suptitle('Solution at t = %1.3f s.' %tin)
 
         ax1.plot_trisurf(p[:,0], p[:,1], u_ap[:,k], triangles=tt, cmap=cm.coolwarm)
@@ -366,7 +366,7 @@ def Cloud_Transient_sav(p, tt, u_ap, u_ex, nom):
         plt.close()
 
     fig, (ax1, ax2) = plt.subplots(1, 2, subplot_kw = {"projection": "3d"}, figsize=(8, 4))
-    tin = float(T[t-1])
+    tin = float(T[t-1]*3)
     plt.suptitle('Solution at t = %1.3f s.' %tin)
 
     ax1.plot_trisurf(p[:,0], p[:,1], u_ap[:,t-1], triangles=tt, cmap=cm.coolwarm)
