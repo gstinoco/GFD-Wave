@@ -1,41 +1,46 @@
-# All the codes presented below were developed by:
-#   Dr. Gerardo Tinoco Guerrero
-#   Universidad Michoacana de San Nicolás de Hidalgo
-#   gerardo.tinoco@umich.mx
-#
-# With the funding of:
-#   National Council of Science and Technology, CONACyT (Consejo Nacional de Ciencia y Tecnología, CONACyT). México.
-#   Coordination of Scientific Research, CIC-UMSNH (Coordinación de la Investigación Científica de la Universidad Michoacana de San Nicolás de Hidalgo, CIC-UMSNH). México
-#   Aula CIMNE Morelia. México
-#
-# Date:
-#   January, 2023.
-#
-# Last Modification:
-#   February, 2023.
+"""
+All the codes presented below were developed by:
+    Dr. Gerardo Tinoco Guerrero
+    Universidad Michoacana de San Nicolás de Hidalgo
+    gerardo.tinoco@umich.mx
+
+With the funding of:
+    National Council of Science and Technology, CONACyT (Consejo Nacional de Ciencia y Tecnología, CONACyT). México.
+    Coordination of Scientific Research, CIC-UMSNH (Coordinación de la Investigación Científica de la Universidad Michoacana de San Nicolás de Hidalgo, CIC-UMSNH). México
+    Aula CIMNE-Morelia. México
+
+Date:
+    November, 2022.
+
+Last Modification:
+    March, 2023.
+"""
 
 import numpy as np
 from scipy.io import loadmat
 from scipy.io import savemat
 import Scripts.Graph as Graph
+import Scripts.Errors as Errors
 import Wave_2D
 
 # Wave coefficient
 c = 1
 
-# Number of Time Steps
-t = 2000
-
 # Approximation Type
-cho = 0
+cho = 1
 
-# Name of the regions
-regions = ['CUA', 'ENG', 'HAB','PAT'] #['CAB','CUA','CUI','DOW','ENG','GIB','HAB','MIC','PAT','ZIR']
+# Names of the regions
+regions = ['CAB','CUA','CUI','DOW','ENG','GIB','HAB','MIC','PAT','ZIR']
 
-# Size of the clouds
+# Sizes of the clouds
 sizes = ['3']#['1', '2', '3']
 
 # Boundary conditions
+# The boundary conditions are defined as
+#     f = \cos(\pi ct\sqrt{2})\sin(\pi x)\sin(\pi y)
+#
+# And its derivative
+#     g = -(\pi c\sqrt{2})\sin(\pi x)\sin(\pi y)\sin(\pi ct\sqrt{2})
 
 def fWAV(x, y, t, c, cho, r):
     if cho == 1:
@@ -53,6 +58,7 @@ def gWAV(x, y, t, c, cho, r):
 
 for reg in regions:
     regi = reg
+    print('Working on region:', regi)
 
     # Initial Drop
     if regi == 'CAB':
@@ -75,29 +81,24 @@ for reg in regions:
         r = np.array([0.8, 0.8])
     if regi == 'ZIR':
         r = np.array([0.7, 0.4])
-    if regi == 'CANAL':
-        r = np.array([0.3, 0.8])
 
     for me in sizes:
+        print('Cloud size:', me)
         cloud = me
 
         # Number of Time Steps
-        if cloud == '1':
+        if cloud == '1' or cloud == '2' or cloud == '3':
             t = 300
-        elif cloud == '2':
-            t = 300
-        elif cloud == '3':
-            t = 300
-        elif cloud == '4':
-            t = 15000
         else:
-            t = 20000
+            t = 1000
         
         # All data is loaded from the file
-        #mat = loadmat('Data/Clouds/' + region + '_' + cloud + '.mat')
         mat = loadmat('Data/Holes/' + regi + '_' + cloud + '.mat')
-        noc = 'Results/Clouds_Holes/' + regi + '_' + cloud + '.mp4'
-        nob = 'Results/Triangulations_Holes/' + regi + '_' + cloud + '.mp4'
+        nce = 'Results/Clouds_Holes/Explicit/' + regi + '_' + cloud + '.mp4'
+        nci = 'Results/Clouds_Holes/Implicit/' + regi + '_' + cloud + '.mp4'
+        nte = 'Results/Triangulations_Holes/Explicit/' + regi + '_' + cloud + '.mp4'
+        nti = 'Results/Triangulations_Holes/Implicit/' + regi + '_' + cloud + '.mp4'
+        nom = 'Results/' + regi + '_' + cloud
 
         # Node data is saved
         p   = mat['p']
@@ -106,12 +107,22 @@ for reg in regions:
             tt -= 1
 
         # Wave Equation in 2D computed on a unstructured cloud of points.
+        u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, implicit=True, triangulation=False, tt=tt, lam=1.00)
+        er = Errors.Cloud(p, vec, u_ap, u_ex)
+        print('Cloud. The maximum mean square error with the explicit scheme (1.00) is: ', er.max())
+        Graph.Cloud_Transient_sav(p, tt, u_ap, u_ex, nce)
+ 
+        u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, implicit=True, triangulation=False, tt=tt, lam=0.50)
+        er = Errors.Cloud(p, vec, u_ap, u_ex)
+        print('Cloud. The maximum mean square error with the implicit scheme (0.50) is: ', er.max())
+        Graph.Cloud_Transient_sav(p, tt, u_ap, u_ex, nci)
+
         u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, implicit=True, triangulation=True, tt=tt, lam=1.00)
-        u_ap100 = u_ap
-
-        u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, implicit=True, triangulation=True, tt=tt, lam=0.75)
-        u_ap75 = u_ap
-
-        tt  += 1
-        mdic = {'u_ap100': u_ap100, 'u_ap75': u_ap75, 'p': p, 'tt': tt}
-        savemat('Results/Paper/' + regi + '_' + cloud + '_3.mat', mdic)
+        er = Errors.Cloud(p, vec, u_ap, u_ex)
+        print('Triangulation. The maximum mean square error with the explicit scheme (1.00) is: ', er.max())
+        Graph.Cloud_Transient_sav(p, tt, u_ap, u_ex, nte)
+ 
+        u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, implicit=True, triangulation=True, tt=tt, lam=0.50)
+        er = Errors.Cloud(p, vec, u_ap, u_ex)
+        print('Triangulation. The maximum mean square error with the implicit scheme (0.50) is: ', er.max())
+        Graph.Cloud_Transient_sav(p, tt, u_ap, u_ex, nti)
