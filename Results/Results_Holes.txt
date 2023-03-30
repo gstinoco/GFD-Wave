@@ -1,0 +1,229 @@
+Region: CAB
+    Size: 1
+        Cloud
+            The maximum mean square error with the explicit scheme (1.00) is:  0.0008340324293712775
+            The maximum mean square error with the implicit scheme (0.50) is:  0.0009734414175360507
+        Triangulation
+            The maximum mean square error with the explicit scheme (1.00) is:  0.0006059437469539294
+            The maximum mean square error with the implicit scheme (0.50) is:  0.0007367145555864116
+    Size: 2
+        Cloud
+            The maximum mean square error with the explicit scheme (1.00) is:  0.00025867844530595664
+            The maximum mean square error with the implicit scheme (0.50) is:  0.00033479300800622557
+        Triangulation
+            The maximum mean square error with the explicit scheme (1.00) is:  0.0002239620993404326
+            The maximum mean square error with the implicit scheme (0.50) is:  0.0002980037732562153
+    Size: 3
+        Cloud
+            The maximum mean square error with the explicit scheme (1.00) is:  0.0010100892639983796
+            The maximum mean square error with the implicit scheme (0.50) is:  0.00013459853063370425
+        Triangulation
+            The maximum mean square error with the explicit scheme (1.00) is:  9.517606466333854e-05
+            The maximum mean square error with the implicit scheme (0.50) is:  0.00011937319818541453
+
+Region: CUA
+    Size: 1
+        Cloud
+            The maximum mean square error with the explicit scheme (1.00) is:  0.0005304933458904762
+            The maximum mean square error with the implicit scheme (0.50) is:  0.0017880735099601343
+        Triangulation
+            The maximum mean square error with the explicit scheme (1.00) is:  0.0005143022169900996
+            The maximum mean square error with the implicit scheme (0.50) is:  0.001693477521210984
+    Size: 2
+        Cloud
+            The maximum mean square error with the explicit scheme (1.00) is:  0.0002441256986644312
+            The maximum mean square error with the implicit scheme (0.50) is:  0.0006722513789304767
+        Triangulation
+            The maximum mean square error with the explicit scheme (1.00) is:  0.00024350027966654994
+            The maximum mean square error with the implicit scheme (0.50) is:  0.0006657943653915442
+    Size: 3
+        Cloud
+            The maximum mean square error with the explicit scheme (1.00) is:  0.00013541959494323168
+            The maximum mean square error with the implicit scheme (0.50) is:  0.00035069765332899173
+        Triangulation
+            The maximum mean square error with the explicit scheme (1.00) is:  0.00012861313353455212
+            The maximum mean square error with the implicit scheme (0.50) is:  0.000334232863797342
+
+Region: CUI
+    Size: 1
+        Cloud
+            The maximum mean square error with the explicit scheme (1.00) is:  0.0012073812064283065
+            The maximum mean square error with the implicit scheme (0.50) is:  0.0014142598348280677
+        Triangulation
+            The maximum mean square error with the explicit scheme (1.00) is:  0.0008159664721909941
+            The maximum mean square error with the implicit scheme (0.50) is:  0.0009594242135620293
+    Size: 2
+        Cloud
+            The maximum mean square error with the explicit scheme (1.00) is:  0.0004839401060555376
+            The maximum mean square error with the implicit scheme (0.50) is:  0.0005705692447756672
+        Triangulation
+            The maximum mean square error with the explicit scheme (1.00) is:  0.00032084443626486926
+            The maximum mean square error with the implicit scheme (0.50) is:  0.0003832279149909694
+    Size: 3
+        Cloud
+            The maximum mean square error with the explicit scheme (1.00) is:  0.00015201520217215987
+            The maximum mean square error with the implicit scheme (0.50) is:  0.00018141556062569838
+        Triangulation
+            The maximum mean square error with the explicit scheme (1.00) is:  0.0004494416492861141
+            The maximum mean square error with the implicit scheme (0.50) is:  0.00015544080273077152
+
+Region: DOW
+    Size: 1
+        Cloud
+            The maximum mean square error with the explicit scheme (1.00) is:  0.0014401762494205995
+            The maximum mean square error with the implicit scheme (0.50) is:  0.0015590675781702245
+        Triangulation
+            The maximum mean square error with the explicit scheme (1.00) is:  0.0012584786255845231
+            The maximum mean square error with the implicit scheme (0.50) is:  0.0013883638415281975
+    Size: 2
+        Cloud
+            The maximum mean square error with the explicit scheme (1.00) is:  0.0002311833482097669
+            The maximum mean square error with the implicit scheme (0.50) is:  0.00026489463196370506
+        Triangulation
+            The maximum mean square error with the explicit scheme (1.00) is:  0.00019817953272031417
+            The maximum mean square error with the implicit scheme (0.50) is:  0.0002352795315974989
+    Size: 3
+        Cloud
+            The maximum mean square error with the explicit scheme (1.00) is:  0.0024683985811249217
+            The maximum mean square error with the implicit scheme (0.50) is:  0.00013224645680339584
+        Triangulation
+            The maximum mean square error with the explicit scheme (1.00) is:  0.008735347519003732
+            The maximum mean square error with the implicit scheme (0.50) is:  0.00010439015323733681
+
+Region: ENG
+    Size: 1
+        Cloud
+            The maximum mean square error with the explicit scheme (1.00) is:  0.0006115921450700199
+            The maximum mean square error with the implicit scheme (0.50) is:  0.0006089881839283892
+        Triangulation
+            The maximum mean square error with the explicit scheme (1.00) is:  0.0004940609798283235
+            The maximum mean square error with the implicit scheme (0.50) is:  0.000507239525246118
+    Size: 2
+        Cloud
+            The maximum mean square error with the explicit scheme (1.00) is:  0.0003666421989332536
+            The maximum mean square error with the implicit scheme (0.50) is:  0.0003699408680568543
+        Triangulation
+            The maximum mean square error with the explicit scheme (1.00) is:  0.00033636568651129083
+            The maximum mean square error with the implicit scheme (0.50) is:  0.0003479375665684137
+    Size: 3
+        Cloud
+            The maximum mean square error with the explicit scheme (1.00) is:  0.04104410884585217
+            The maximum mean square error with the implicit scheme (0.50) is:  0.00023266767078872135
+        Triangulation
+            The maximum mean square error with the explicit scheme (1.00) is:  0.00016601625413446776
+            The maximum mean square error with the implicit scheme (0.50) is:  0.00016227099225926564
+
+Region: GIB
+    Size: 1
+        Cloud
+            The maximum mean square error with the explicit scheme (1.00) is:  0.0020498423606068517
+            The maximum mean square error with the implicit scheme (0.50) is:  0.0014283999893763494
+        Triangulation
+            The maximum mean square error with the explicit scheme (1.00) is:  0.0007690558076445591
+            The maximum mean square error with the implicit scheme (0.50) is:  0.0008378510785218179
+    Size: 2
+        Cloud
+            The maximum mean square error with the explicit scheme (1.00) is:  0.0004851180011622082
+            The maximum mean square error with the implicit scheme (0.50) is:  0.0005516032314751679
+        Triangulation
+            The maximum mean square error with the explicit scheme (1.00) is:  0.0003624034231957893
+            The maximum mean square error with the implicit scheme (0.50) is:  0.0004336554020088696
+    Size: 3
+        Cloud
+            The maximum mean square error with the explicit scheme (1.00) is:  0.008893253816026177
+            The maximum mean square error with the implicit scheme (0.50) is:  0.00023183127974214416
+        Triangulation
+            The maximum mean square error with the explicit scheme (1.00) is:  0.00016348774760734685
+            The maximum mean square error with the implicit scheme (0.50) is:  0.00018475932985340484
+
+Region: HAB
+    Size: 1
+        Cloud
+            The maximum mean square error with the explicit scheme (1.00) is:  0.0016934414502964225
+            The maximum mean square error with the implicit scheme (0.50) is:  0.0015773418617269117
+        Triangulation
+            The maximum mean square error with the explicit scheme (1.00) is:  0.0011924792441432293
+            The maximum mean square error with the implicit scheme (0.50) is:  0.0010977432693273523
+    Size: 2
+        Cloud
+            The maximum mean square error with the explicit scheme (1.00) is:  0.0019319915928184754
+            The maximum mean square error with the implicit scheme (0.50) is:  0.0006466684527786227
+        Triangulation
+            The maximum mean square error with the explicit scheme (1.00) is:  0.0006277295760498818
+            The maximum mean square error with the implicit scheme (0.50) is:  0.0005579592427603121
+    Size: 3
+        Cloud
+            The maximum mean square error with the explicit scheme (1.00) is:  0.00029589421521071627
+            The maximum mean square error with the implicit scheme (0.50) is:  0.0002599039284736966
+        Triangulation
+            The maximum mean square error with the explicit scheme (1.00) is:  0.0002394298069244357
+            The maximum mean square error with the implicit scheme (0.50) is:  0.00023912746434938357
+
+Region: MIC
+    Size: 1
+        Cloud
+            The maximum mean square error with the explicit scheme (1.00) is:  0.0023033841576009296
+            The maximum mean square error with the implicit scheme (0.50) is:  0.002604332020448988
+        Triangulation
+            The maximum mean square error with the explicit scheme (1.00) is:  0.002086071578322532
+            The maximum mean square error with the implicit scheme (0.50) is:  0.0024380747801205044
+    Size: 2
+        Cloud
+            The maximum mean square error with the explicit scheme (1.00) is:  0.0008059903972871467
+            The maximum mean square error with the implicit scheme (0.50) is:  0.0010165603567553543
+        Triangulation
+            The maximum mean square error with the explicit scheme (1.00) is:  0.0006687558484442443
+            The maximum mean square error with the implicit scheme (0.50) is:  0.0008163206150207701
+    Size: 3
+        Cloud
+            The maximum mean square error with the explicit scheme (1.00) is:  0.00048352395180499774
+            The maximum mean square error with the implicit scheme (0.50) is:  0.0006000224230703535
+        Triangulation
+            The maximum mean square error with the explicit scheme (1.00) is:  0.000372714295660365
+            The maximum mean square error with the implicit scheme (0.50) is:  0.0004617770322859451
+
+Region: PAT
+    Size: 1
+        Cloud
+            The maximum mean square error with the explicit scheme (1.00) is:  0.0008985662541248765
+            The maximum mean square error with the implicit scheme (0.50) is:  0.0010489353705534612
+        Triangulation
+            The maximum mean square error with the explicit scheme (1.00) is:  0.0008219236319279306
+            The maximum mean square error with the implicit scheme (0.50) is:  0.0009553213302522903
+    Size: 2
+        Cloud
+            The maximum mean square error with the explicit scheme (1.00) is:  0.0005930313600942049
+            The maximum mean square error with the implicit scheme (0.50) is:  0.0005715795392516712
+        Triangulation
+            The maximum mean square error with the explicit scheme (1.00) is:  0.0004053782151062627
+            The maximum mean square error with the implicit scheme (0.50) is:  0.00044371963455287804
+    Size: 3
+        Cloud
+            The maximum mean square error with the explicit scheme (1.00) is:  0.0016560197826682446
+            The maximum mean square error with the implicit scheme (0.50) is:  0.00020085578580858284
+        Triangulation
+            The maximum mean square error with the explicit scheme (1.00) is:  0.00016238114607740784
+            The maximum mean square error with the implicit scheme (0.50) is:  0.00016796075053975351
+
+Region: ZIR
+    Size: 1
+        Cloud
+            The maximum mean square error with the explicit scheme (1.00) is:  0.002108090382791619
+            The maximum mean square error with the implicit scheme (0.50) is:  0.0026013784933806095
+        Triangulation
+            The maximum mean square error with the explicit scheme (1.00) is:  0.0017215770309078756
+            The maximum mean square error with the implicit scheme (0.50) is:  0.0021524766439893804
+    Size: 2
+        Cloud
+            The maximum mean square error with the explicit scheme (1.00) is:  0.0005565215917037305
+            The maximum mean square error with the implicit scheme (0.50) is:  0.0007703137516067597
+        Triangulation
+            The maximum mean square error with the explicit scheme (1.00) is:  0.0004371097947638512
+            The maximum mean square error with the implicit scheme (0.50) is:  0.0006188725398673208
+    Size: 3
+        Cloud
+            The maximum mean square error with the explicit scheme (1.00) is:  0.0010119935503110082
+            The maximum mean square error with the implicit scheme (0.50) is:  0.0002982985876833672
+        Triangulation
+            The maximum mean square error with the explicit scheme (1.00) is:  0.00039687330123172474
+            The maximum mean square error with the implicit scheme (0.50) is:  0.0002717238338044459
