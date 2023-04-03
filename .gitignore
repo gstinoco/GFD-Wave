@@ -60,5 +60,6 @@ $RECYCLE.BIN/
 *.cpython-39*
 __*
 .vscode
+__pycache__
 
 # On going
