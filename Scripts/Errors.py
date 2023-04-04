@@ -110,3 +110,32 @@ def Cloud(p, vec, u_ap, u_ex):
         er[k] = np.sqrt(er[k])                                                      # The square root is computed.
     
     return er
+
+def Cloud_size(p, vec, u_ap, u_ex):
+    """
+    Cloud
+    Function to compute the error in a triangulation or an unstructured cloud of points for a problem that depends on time.
+    The polygon used to calculate the area is the one defined by all the immediate neighbors of the central node.
+    
+    Input:
+        p           m x 2           Array           Array with the coordinates of the nodes.
+        vec         m x nvec        Array           Array with the correspondence of the nvec neighbors of each node.
+        u_ap        m x t           Array           Array with the computed solution.
+        u_ex        m x t           Array           Array with the theoretical solution.
+    
+    Output:
+        er          t x 1           Array           Mean square error computed on each time step.
+    """
+
+    m    = len(p[:,0])                                                              # The total number of nodes is calculated.
+    t    = len(u_ap[0,:])                                                           # The number of time steps is found.
+    er   = np.zeros(t)                                                              # er initialization with zeros.
+    area = 1/m                                                                      # area initialization with zeros.
+
+    for k in np.arange(t):                                                          # For each time step.
+        for i in np.arange(m):                                                      # For each of the nodes.
+            er[k] = er[k] + area*(u_ap[i,k] - u_ex[i,k])**2                      # Mean square error computation.
+
+        er[k] = np.sqrt(er[k])                                                      # The square root is computed.
+    
+    return er
