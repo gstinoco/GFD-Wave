@@ -19,6 +19,7 @@ Last Modification:
 import numpy as np
 import Scripts.Gammas as Gammas
 import Scripts.Neighbors as Neighbors
+import time
 
 def Cloud(p, f, g, t, c, cho, r, triangulation = False, tt = [], implicit = False, lam = 0.5):
     """
@@ -59,7 +60,7 @@ def Cloud(p, f, g, t, c, cho, r, triangulation = False, tt = [], implicit = Fals
     # Variable initialization
     m    = len(p[:,0])                                                              # The total number of nodes is calculated.
     nvec = 8                                                                        # Maximum number of neighbors for each node.
-    T    = np.linspace(0,2,t)                                                       # Time discretization.
+    T    = np.linspace(0,1,t)                                                       # Time discretization.
     dt   = T[1] - T[0]                                                              # dt computation.
     u_ap = np.zeros([m,t])                                                          # u_ap initialization with zeros.
     u_ex = np.zeros([m,t])                                                          # u_ex initialization with zeros.
@@ -93,6 +94,8 @@ def Cloud(p, f, g, t, c, cho, r, triangulation = False, tt = [], implicit = Fals
         K2 = (np.identity(m) + lam*(1/2)*K)
         K3 = np.linalg.pinv(np.identity(m) - (1-lam)*K)                             # Implicit formulation of K for k = 2,...,t.
         K4 = (2*np.identity(m) + lam*K)
+    
+    start = time.time()
 
     # A Generalized Finite Differences Method
     ## Second time step computation.
@@ -109,6 +112,9 @@ def Cloud(p, f, g, t, c, cho, r, triangulation = False, tt = [], implicit = Fals
             if p[i,2] == 0:                                                         # If the node is an inner node.
                 u_ap[i,k] = un[i]                                                   # Save the computed solution.
 
+    end = time.time()
+
+    print('The elapsed time of the method was: ', end-start, 'seconds.')
     # Theoretical Solution
     for k in np.arange(t):                                                          # For all the time steps.
         for i in np.arange(m):                                                      # For each of the nodes.

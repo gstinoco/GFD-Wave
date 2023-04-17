@@ -24,16 +24,16 @@ import Scripts.Errors as Errors
 import Wave_2D
 
 # Wave coefficient
-c = 2
+c = np.sqrt(1/2)
 
 # Approximation Type
 cho = 1
 
 # Names of the regions
-regions = ['Compare']
+regions = ['CUA','ENG','HAB','PAT']
 
 # Sizes of the clouds
-sizes = ['1', '2', '3']
+sizes = ['2']
 
 # Boundary conditions
 # The boundary conditions are defined as
@@ -44,14 +44,14 @@ sizes = ['1', '2', '3']
 
 def fWAV(x, y, t, c, cho, r):
     if cho == 1:
-        fun = np.cos(np.pi*t)*np.sin(np.pi(x+y))
+        fun = np.cos(np.pi*t)*np.sin(np.pi*(x+y))
     else:
         fun = 0.2*np.exp((-(x - r[0] - c*t)**2 - (y - r[1] - c*t)**2)/.001)
     return fun
 
 def gWAV(x, y, t, c, cho, r):
     if cho == 1:
-        fun = -np.pi*np.sin(np.pi*t)*np.sin(np.pi(x+y))
+        fun = np.cos(np.pi*t)*np.sin(np.pi*(x+y))
     else:
         fun = 0.2*np.exp((-(x - r[0] - c*t)**2 - (y - r[1] - c*t)**2)/.001)
     return fun
@@ -69,11 +69,11 @@ for reg in regions:
 
         # Number of Time Steps
         if cloud == '1':
-            t = 60
+            t = 300
         elif cloud == '2':
-            t = 600
+            t = 500
         elif cloud == '3':
-            t = 30
+            t = 1000
         else:
             t = 1000
         
@@ -86,16 +86,19 @@ for reg in regions:
         nom = 'Results/' + regi + '_' + cloud
 
         # Node data is saved
-        p = mat['p']
+        p   = mat['p']
+        tt  = mat['tt']
+        if tt.min() == 1:
+            tt -= 1
         
-        print('\t\tCloud')
+        print('\tCloud')
         # Wave Equation in 2D computed on a unstructured cloud of points.
-        u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, implicit=True, triangulation=False, lam=1.00)
+        u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, implicit=True, triangulation=True, tt=tt, lam=1.00)
         er = Errors.Cloud_size(p, vec, u_ap, u_ex)
-        print('\t\t\tThe maximum mean square error with the explicit scheme (1.00) is: ', er.max())
-        #Graph.Cloud_Transient_sav(p, tt, u_ap, u_ex, nce)
+        print('\t\tThe maximum mean square error with the explicit scheme (1.00) is: ', er.max())
+        Graph.Cloud_Transient(p, tt, u_ap, u_ex)
  
-        u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, implicit=True, triangulation=False, lam=0.50)
+        u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, implicit=True, triangulation=True, tt=tt, lam=0.50)
         er = Errors.Cloud_size(p, vec, u_ap, u_ex)
-        print('\t\t\tThe maximum mean square error with the implicit scheme (0.50) is: ', er.max())
-        #Graph.Cloud_Transient_sav(p, tt, u_ap, u_ex, nci)
+        print('\t\tThe maximum mean square error with the implicit scheme (0.50) is: ', er.max())
+        Graph.Cloud_Transient(p, tt, u_ap, u_ex)
