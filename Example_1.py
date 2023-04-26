@@ -81,7 +81,7 @@ for reg in regions:
 
         tt  += 1
         mdic = {'u_ap': u_ap, 'u_ex': u_ex, 'p': p, 'tt': tt}
-        savemat('Results/Paper/' + regi + '_1.mat', mdic)
+        savemat('Results/' + regi + '_1.mat', mdic)
         tt  -= 1
 
         u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, implicit=True, triangulation=True, tt=tt, lam=0.50)
