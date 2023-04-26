@@ -27,13 +27,13 @@ import Wave_2D
 c = 1
 
 # Approximation Type
-cho = 1
+cho = 0
 
 # Names of the regions
-regions = ['CAB','CUA','CUI','DOW','ENG','GIB','HAB','MIC','PAT','ZIR']
+regions = ["CUA","ENG","HAB","PAT"]#['CAB','CUA','CUI','DOW','ENG','GIB','HAB','MIC','PAT','ZIR']
 
 # Sizes of the clouds
-sizes = ['1', '2', '3']
+sizes = ["3"]#['1', '2', '3']
 
 # Boundary conditions
 # The boundary conditions are defined as
@@ -109,22 +109,25 @@ for reg in regions:
         print('\t\tCloud')
         # Wave Equation in 2D computed on a unstructured cloud of points.
         u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, implicit=True, triangulation=False, tt=tt, lam=1.00)
-        er = Errors.Cloud(p, vec, u_ap, u_ex)
-        print('\t\t\tThe maximum mean square error with the explicit scheme (1.00) is: ', er.max())
-        Graph.Cloud_Transient_sav(p, tt, u_ap, u_ex, nce)
+        #er = Errors.Cloud(p, vec, u_ap, u_ex)
+        #print('\t\t\tThe maximum mean square error with the explicit scheme (1.00) is: ', er.max())
+        mdic = {'u_ap': u_ap, 'u_ex': u_ex, 'p': p, 'tt': tt}
+        savemat(regi + '.mat', mdic)
 
-        u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, implicit=True, triangulation=False, tt=tt, lam=0.50)
-        er = Errors.Cloud(p, vec, u_ap, u_ex)
-        print('\t\t\tThe maximum mean square error with the implicit scheme (0.50) is: ', er.max())
-        Graph.Cloud_Transient_sav(p, tt, u_ap, u_ex, nci)
+#        Graph.Cloud_Transient_sav(p, tt, u_ap, u_ex, nce)
 
-        print('\t\tTriangulation')
-        u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, implicit=True, triangulation=True, tt=tt, lam=1.00)
-        er = Errors.Cloud(p, vec, u_ap, u_ex)
-        print('\t\t\tThe maximum mean square error with the explicit scheme (1.00) is: ', er.max())
-        Graph.Cloud_Transient_sav(p, tt, u_ap, u_ex, nte)
- 
-        u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, implicit=True, triangulation=True, tt=tt, lam=0.50)
-        er = Errors.Cloud(p, vec, u_ap, u_ex)
-        print('\t\t\tThe maximum mean square error with the implicit scheme (0.50) is: ', er.max())
-        Graph.Cloud_Transient_sav(p, tt, u_ap, u_ex, nti)
+#        u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, implicit=True, triangulation=False, tt=tt, lam=0.50)
+#        er = Errors.Cloud(p, vec, u_ap, u_ex)
+#        print('\t\t\tThe maximum mean square error with the implicit scheme (0.50) is: ', er.max())
+#        Graph.Cloud_Transient_sav(p, tt, u_ap, u_ex, nci)
+#
+#        print('\t\tTriangulation')
+#        u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, implicit=True, triangulation=True, tt=tt, lam=1.00)
+#        er = Errors.Cloud(p, vec, u_ap, u_ex)
+#        print('\t\t\tThe maximum mean square error with the explicit scheme (1.00) is: ', er.max())
+#        Graph.Cloud_Transient_sav(p, tt, u_ap, u_ex, nte)
+# 
+#        u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, implicit=True, triangulation=True, tt=tt, lam=0.50)
+#        er = Errors.Cloud(p, vec, u_ap, u_ex)
+#        print('\t\t\tThe maximum mean square error with the implicit scheme (0.50) is: ', er.max())
+#        Graph.Cloud_Transient_sav(p, tt, u_ap, u_ex, nti)

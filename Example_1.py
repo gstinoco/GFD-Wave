@@ -37,53 +37,33 @@ sizes = ['2']
 
 # Boundary conditions
 # The boundary conditions are defined as
-#     f = \cos(\pi ct\sqrt{2})\sin(\pi x)\sin(\pi y)
+#     f = \cos{\pi t}\sin{\pi(x + y)}
 #
 # And its derivative
-#     g = -(\pi c\sqrt{2})\sin(\pi x)\sin(\pi y)\sin(\pi ct\sqrt{2})
+#     g = -\pi\sin{\pi t}\sin{\pi(x + y)}
 
 def fWAV(x, y, t, c, cho, r):
-    if cho == 1:
-        fun = np.cos(np.pi*t)*np.sin(np.pi*(x+y))
-    else:
-        fun = 0.2*np.exp((-(x - r[0] - c*t)**2 - (y - r[1] - c*t)**2)/.001)
+    fun = np.cos(np.pi*t)*np.sin(np.pi*(x+y))
     return fun
 
 def gWAV(x, y, t, c, cho, r):
-    if cho == 1:
-        fun = np.cos(np.pi*t)*np.sin(np.pi*(x+y))
-    else:
-        fun = 0.2*np.exp((-(x - r[0] - c*t)**2 - (y - r[1] - c*t)**2)/.001)
+    fun = 0
     return fun
 
 for reg in regions:
     regi = reg
     print('Region:', regi)
 
-    # Initial Drop
     r = np.array([0, 0])
     
     for me in sizes:
-        print('\tSize:', me)
         cloud = me
 
         # Number of Time Steps
-        if cloud == '1':
-            t = 300
-        elif cloud == '2':
-            t = 500
-        elif cloud == '3':
-            t = 1000
-        else:
-            t = 1000
+        t = 1000
         
         # All data is loaded from the file
         mat = loadmat('Data/Clouds/' + regi + '_' + cloud + '.mat')
-        nce = 'Results/Clouds/Explicit/' + regi + '_' + cloud + '.mp4'
-        nci = 'Results/Clouds/Implicit/' + regi + '_' + cloud + '.mp4'
-        nte = 'Results/Triangulations/Explicit/' + regi + '_' + cloud + '.mp4'
-        nti = 'Results/Triangulations/Implicit/' + regi + '_' + cloud + '.mp4'
-        nom = 'Results/' + regi + '_' + cloud
 
         # Node data is saved
         p   = mat['p']
@@ -91,14 +71,36 @@ for reg in regions:
         if tt.min() == 1:
             tt -= 1
         
-        print('\tCloud')
         # Wave Equation in 2D computed on a unstructured cloud of points.
         u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, implicit=True, triangulation=True, tt=tt, lam=1.00)
-        er = Errors.Cloud_size(p, vec, u_ap, u_ex)
-        print('\t\tThe maximum mean square error with the explicit scheme (1.00) is: ', er.max())
+        er1 = Errors.Cloud_size(p, vec, u_ap, u_ex)
         Graph.Cloud_Transient(p, tt, u_ap, u_ex)
  
+        u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, implicit=True, triangulation=True, tt=tt, lam=0.75)
+        er2 = Errors.Cloud_size(p, vec, u_ap, u_ex)
+
+        tt  += 1
+        mdic = {'u_ap': u_ap, 'u_ex': u_ex, 'p': p, 'tt': tt}
+        savemat('Results/Paper/' + regi + '_1.mat', mdic)
+        tt  -= 1
+
         u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, implicit=True, triangulation=True, tt=tt, lam=0.50)
-        er = Errors.Cloud_size(p, vec, u_ap, u_ex)
-        print('\t\tThe maximum mean square error with the implicit scheme (0.50) is: ', er.max())
-        Graph.Cloud_Transient(p, tt, u_ap, u_ex)
+        er3 = Errors.Cloud_size(p, vec, u_ap, u_ex)
+        
+        u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, implicit=True, triangulation=True, tt=tt, lam=0.25)
+        er4 = Errors.Cloud_size(p, vec, u_ap, u_ex)
+        
+        u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, implicit=True, triangulation=True, tt=tt, lam=0.00)
+        er5 = Errors.Cloud_size(p, vec, u_ap, u_ex)
+        
+        print('\tThe mean square error with the explicit scheme (1.00) is: ', er1.mean())
+        print('\tThe mean square error with the implicit scheme (0.75) is: ', er2.mean())
+        print('\tThe mean square error with the implicit scheme (0.50) is: ', er3.mean())
+        print('\tThe mean square error with the implicit scheme (0.25) is: ', er4.mean())
+        print('\tThe mean square error with the implicit scheme (0.00) is: ', er5.mean())
+        print('\n')
+        print('\tThe last square error with the explicit scheme (1.00) is: ', er1[-1])
+        print('\tThe last square error with the implicit scheme (0.75) is: ', er2[-1])
+        print('\tThe last square error with the implicit scheme (0.50) is: ', er3[-1])
+        print('\tThe last square error with the implicit scheme (0.25) is: ', er4[-1])
+        print('\tThe last square error with the implicit scheme (0.00) is: ', er5[-1])

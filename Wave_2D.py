@@ -114,7 +114,7 @@ def Cloud(p, f, g, t, c, cho, r, triangulation = False, tt = [], implicit = Fals
 
     end = time.time()
 
-    print('The elapsed time of the method was: ', end-start, 'seconds.')
+    print('\tThe elapsed time of the method was: ', end-start, 'seconds.')
     # Theoretical Solution
     for k in np.arange(t):                                                          # For all the time steps.
         for i in np.arange(m):                                                      # For each of the nodes.
