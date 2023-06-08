@@ -134,7 +134,7 @@ def Cloud_size(p, vec, u_ap, u_ex):
 
     for k in np.arange(t):                                                          # For each time step.
         for i in np.arange(m):                                                      # For each of the nodes.
-            er[k] = er[k] + area*(u_ap[i,k] - u_ex[i,k])**2                      # Mean square error computation.
+            er[k] = er[k] + area*(u_ap[i,k] - u_ex[i,k])**2                         # Mean square error computation.
 
         er[k] = np.sqrt(er[k])                                                      # The square root is computed.
     
