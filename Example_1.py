@@ -74,7 +74,7 @@ for reg in regions:
         # Wave Equation in 2D computed on a unstructured cloud of points.
         u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, implicit=True, triangulation=True, tt=tt, lam=1.00)
         er1 = Errors.Cloud_size(p, vec, u_ap, u_ex)
-        Graph.Cloud_Transient(p, tt, u_ap, u_ex)
+        #Graph.Cloud_Transient(p, tt, u_ap, u_ex)
  
         u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, implicit=True, triangulation=True, tt=tt, lam=0.75)
         er2 = Errors.Cloud_size(p, vec, u_ap, u_ex)
