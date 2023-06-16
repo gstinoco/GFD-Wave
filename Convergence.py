@@ -33,20 +33,22 @@ cho = 1
 regions = ['CUA','ENG','HAB','PAT']
 
 # Sizes of the clouds
-sizes = ['2']
+sizes = [1, 2, 3, 4]
+#sizes = [2]
 
 # Times
-times = ['1', '2','3','4']
+times = [1]
+#times = [1, 2, 3, 4]
 
 # Boundary conditions
 # The boundary conditions are defined as
-#     f = \cos{\pi t}\sin{\pi(x + y)}
+#     f = \cos(\pi c t\sqrt{2})\sin(\pi x)\sin(\pi y)
 #
 # And its derivative
-#     g = -\pi\sin{\pi t}\sin{\pi(x + y)}
+#     g = -(\pi c \sqrt{2})\sin(\pi c t\sqrt{2})\sin(\pi x)\sin(\pi y)
 
 def fWAV(x, y, t, c, cho, r):
-    fun = np.cos(np.pi*t)*np.sin(np.pi*(x+y))
+    fun = np.cos(np.sqrt(2)*np.pi*c*t)*np.sin(np.pi*x)*np.sin(np.pi*y)
     return fun
 
 def gWAV(x, y, t, c, cho, r):
@@ -60,20 +62,20 @@ for reg in regions:
     r = np.array([0, 0])
     
     for me in sizes:
-        cloud = me
+        cloud = str(me)
 
         for ti in times:
-            if ti == '1':
-                t = 100
-            if ti == '2':
-                t = 200
-            if ti == '3':
-                t = 400
-            if ti == '4':
-                t = 800
+            if ti == 1:
+                t = 1000
+            if ti == 2:
+                t = 2000
+            if ti == 3:
+                t = 3000
+            if ti == 4:
+                t = 4000
         
             # All data is loaded from the file
-            mat = loadmat('Data/Clouds/' + regi + '_' + cloud + '.mat')
+            mat = loadmat('Data/Clouds/' + regi + '_' + cloud + '_n.mat')
 
             # Node data is saved
             p   = mat['p']
@@ -82,8 +84,8 @@ for reg in regions:
                 tt -= 1
         
             # Wave Equation in 2D computed on a unstructured cloud of points.
-            u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, implicit=True, triangulation=True, tt=tt, lam=0)
-            er2 = Errors.Cloud_size(p, vec, u_ap, u_ex)
+            u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, implicit=True, triangulation=True, tt=tt, lam=1)
+            er = Errors.Cloud(p, vec, u_ap, u_ex)
         
-            #print('\tThe mean square error with', len(p[:,0]), 'nodes is: ', er2.mean())
-            print('\tThe mean square error with \Delta t = ', 1/t, 'is: ', er2.mean())
+            print('\tThe mean square error with', len(p[:,0]), 'nodes is: ', er.mean())
+            #print('\tThe mean square error with \Delta t = ', 1/t, 'is: ', er.mean())

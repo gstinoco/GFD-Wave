@@ -33,7 +33,7 @@ cho = 1
 regions = ['CUA','ENG','HAB','PAT']
 
 # Sizes of the clouds
-sizes = ['2']
+sizes = [2]
 
 # Boundary conditions
 # The boundary conditions are defined as
@@ -57,13 +57,13 @@ for reg in regions:
     r = np.array([0, 0])
     
     for me in sizes:
-        cloud = me
+        cloud = str(me)
 
         # Number of Time Steps
         t = 1000
         
         # All data is loaded from the file
-        mat = loadmat('Data/Clouds/' + regi + '_' + cloud + '.mat')
+        mat = loadmat('Data/Clouds/' + regi + '_' + cloud + '_n.mat')
 
         # Node data is saved
         p   = mat['p']
@@ -73,25 +73,25 @@ for reg in regions:
         
         # Wave Equation in 2D computed on a unstructured cloud of points.
         u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, implicit=True, triangulation=True, tt=tt, lam=1.00)
-        er1 = Errors.Cloud_size(p, vec, u_ap, u_ex)
+        er1 = Errors.Cloud(p, vec, u_ap, u_ex)
         #Graph.Cloud_Transient(p, tt, u_ap, u_ex)
  
         u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, implicit=True, triangulation=True, tt=tt, lam=0.75)
-        er2 = Errors.Cloud_size(p, vec, u_ap, u_ex)
+        er2 = Errors.Cloud(p, vec, u_ap, u_ex)
 
-        tt  += 1
-        mdic = {'u_ap': u_ap, 'u_ex': u_ex, 'p': p, 'tt': tt}
-        savemat('Results/' + regi + '_1.mat', mdic)
-        tt  -= 1
+        #tt  += 1
+        #mdic = {'u_ap': u_ap, 'u_ex': u_ex, 'p': p, 'tt': tt}
+        #savemat('Results/' + regi + '_1_n.mat', mdic)
+        #tt  -= 1
 
         u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, implicit=True, triangulation=True, tt=tt, lam=0.50)
-        er3 = Errors.Cloud_size(p, vec, u_ap, u_ex)
+        er3 = Errors.Cloud(p, vec, u_ap, u_ex)
         
         u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, implicit=True, triangulation=True, tt=tt, lam=0.25)
-        er4 = Errors.Cloud_size(p, vec, u_ap, u_ex)
+        er4 = Errors.Cloud(p, vec, u_ap, u_ex)
         
         u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, implicit=True, triangulation=True, tt=tt, lam=0.00)
-        er5 = Errors.Cloud_size(p, vec, u_ap, u_ex)
+        er5 = Errors.Cloud(p, vec, u_ap, u_ex)
         
         print('\tThe mean square error with the explicit scheme (1.00) is: ', er1.mean())
         print('\tThe mean square error with the implicit scheme (0.75) is: ', er2.mean())
