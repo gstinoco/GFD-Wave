@@ -24,7 +24,7 @@ import Scripts.Errors as Errors
 import Wave_2D
 
 # Wave coefficient
-c = np.sqrt(1/2)
+c = 1
 
 # Approximation Type
 cho = 1
@@ -66,13 +66,13 @@ for reg in regions:
 
         for ti in times:
             if ti == 1:
-                t = 1000
+                t = 100
             if ti == 2:
-                t = 2000
+                t = 200
             if ti == 3:
-                t = 3000
+                t = 300
             if ti == 4:
-                t = 4000
+                t = 400
         
             # All data is loaded from the file
             mat = loadmat('Data/Clouds/' + regi + '_' + cloud + '_n.mat')
@@ -84,7 +84,7 @@ for reg in regions:
                 tt -= 1
         
             # Wave Equation in 2D computed on a unstructured cloud of points.
-            u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, implicit=True, triangulation=True, tt=tt, lam=1)
+            u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, implicit=True, triangulation=True, tt=tt, lam=0.25)
             er = Errors.Cloud(p, vec, u_ap, u_ex)
         
             print('\tThe mean square error with', len(p[:,0]), 'nodes is: ', er.mean())
