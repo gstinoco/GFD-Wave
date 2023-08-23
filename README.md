@@ -12,7 +12,7 @@ For this, the proposed solution uses a Generalized Finite Differences Method for
 
 Havana Cloud of Points With Holes                             | Havana Cloud of Points
 :------------------------------------------------------------:|:------------------------------------------------------------:
-![Havana Bay Cloud of Points](/Data/Holes/HAB_2.png)          | ![Havana Bay Cloud of Points](/Data/Clouds/HAB_2_n.png)
+![Havana Bay Cloud of Points](/Data/Holes/HAB_3.png)          | ![Havana Bay Cloud of Points](/Data/Clouds/HAB_3_n.png)
 
 
 It is possible to find all test data in the "Data" folder and some sample results in the "Results" folder.
