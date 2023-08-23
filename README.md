@@ -10,11 +10,9 @@ This repository proposes a way to make an approximation to Wave Equation in two 
 
 For this, the proposed solution uses a Generalized Finite Differences Method for the numerical solution over all the regions on unstructured clouds of points.
 
-Havana Structured Grid                                        | Havana Cloud of Points
+Havana Cloud of Points With Holes                             | Havana Cloud of Points
 :------------------------------------------------------------:|:------------------------------------------------------------:
-![Havana Bay Region](/Data/Meshes/HAB_2.png)                  | ![Havana Bay Cloud of Points](/Data/Clouds/HAB_2_n.png)
-Havana Cloud of Points With Holes
-![Havana Bay Cloud of Points](/Data/Holes/HAB_2.png)
+![Havana Bay Cloud of Points](/Data/Holes/HAB_2.png)          | ![Havana Bay Cloud of Points](/Data/Clouds/HAB_2_n.png)
 
 
 It is possible to find all test data in the "Data" folder and some sample results in the "Results" folder.
