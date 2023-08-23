@@ -14,9 +14,9 @@ For this, the proposed solution uses a Generalized Finite Differences Method for
 
 Havana Structured Grid                                        | Havana Cloud of Points
 :------------------------------------------------------------:|:------------------------------------------------------------:
-![Zirahuen Lake Region](/Data/Meshes/HAB_2.png)               | ![Zirahuen Lake Triangulation](/Data/Clouds/ZIR_2_n.png)
-Zirahuen Cloud of Points With Holes
-![Zirahuen Lake Cloud of Points](/Data/Holes/HAB_2.png)
+![Havana Bay Region](/Data/Meshes/HAB_2.png)                  | ![Havana Bay Cloud of Points](/Data/Clouds/HAB_2_n.png)
+Havana Cloud of Points With Holes
+![Havana Bay Cloud of Points](/Data/Holes/HAB_2.png)
 
 
 It is possible to find all test data in the "Data" folder and some sample results in the "Results" folder.
