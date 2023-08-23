@@ -12,11 +12,11 @@ For this, the proposed solution uses a Generalized Finite Differences Method for
 1. Triangulations.
 2. Unstructured clouds of points.
 
-Zirahuen Structured Grid                                      | Zirahuen Triangulation
+Havana Structured Grid                                        | Havana Cloud of Points
 :------------------------------------------------------------:|:------------------------------------------------------------:
-![Zirahuen Lake Region](/Data/Meshes/ZIR_2.png)               | ![Zirahuen Lake Triangulation](/Data/Clouds/ZIR_2_Tri.png)
-Zirahuen Cloud of Points                                      | Zirahuen Cloud of Points With Holes
-![Zirahuen Lake Cloud of Points](/Data/Clouds/ZIR_2.png)      | ![Zirahuen Lake Cloud of Points](/Data/Holes/ZIR_2.png)
+![Zirahuen Lake Region](/Data/Meshes/HAB_2.png)               | ![Zirahuen Lake Triangulation](/Data/Clouds/ZIR_2_n.png)
+Zirahuen Cloud of Points With Holes
+![Zirahuen Lake Cloud of Points](/Data/Holes/HAB_2.png)
 
 
 It is possible to find all test data in the "Data" folder and some sample results in the "Results" folder.
