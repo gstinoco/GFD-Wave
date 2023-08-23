@@ -8,9 +8,7 @@ All the codes are distributed under MIT License on [GitHub](https://github.com/g
 ## Description :memo:
 This repository proposes a way to make an approximation to Wave Equation in two dimensions over regions that can range from regular (CUA) to highly irregular (ENG).
 
-For this, the proposed solution uses a Generalized Finite Differences Method for the numerical solution over all the regions on:<br>
-1. Triangulations.
-2. Unstructured clouds of points.
+For this, the proposed solution uses a Generalized Finite Differences Method for the numerical solution over all the regions on unstructured clouds of points.
 
 Havana Structured Grid                                        | Havana Cloud of Points
 :------------------------------------------------------------:|:------------------------------------------------------------:
