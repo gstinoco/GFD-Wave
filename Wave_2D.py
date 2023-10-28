@@ -21,7 +21,66 @@ import Scripts.Gammas as Gammas
 import Scripts.Neighbors as Neighbors
 import time
 
-def Cloud(p, f, g, t, c, cho, r, triangulation = False, tt = [], implicit = False, lam = 0.5):
+def Cloud(p, f, g, t, c, cho, r, triangulation = False, tt = None, implicit = False, lam = 0.5):
+    m      = len(p[:,0])                                                            # The total number of nodes is calculated.
+    nvec   = 8                                                                      # Maximum number of neighbors for each node.
+    T      = np.linspace(0,1,t)                                                     # Time discretization.
+    dt     = T[1] - T[0]                                                            # dt computation.
+    u_ap   = np.zeros([m,t])                                                        # u_ap initialization with zeros.
+    u_ex   = np.zeros([m,t])                                                        # u_ex initialization with zeros.
+    cdt    = (c**2)*(dt**2)                                                         # cdt is equals to c^2 dt^2.
+    boun_n = p[:,2] == 1                                                            # Save the boundary nodes.
+    inne_n = p[:,2] == 0                                                            # Save the inner nodes.
+
+    # Boundary conditions
+    if cho == 1:                                                                    # Approximation Type selection.
+        for k in np.arange(t):                                                      # For each time step.
+            u_ap[boun_n, k] = f(p[boun_n, 0], p[boun_n, 1], T[k], c, cho, r)        # The boundary condition is assigned.
+
+    # Initial condition
+    u_ap[:, 0] = f(p[:, 0], p[:, 1], T[0], c, cho, r)                               # The initial condition is assigned.
+    
+    # Neighbor search for all the nodes.
+    if triangulation == True:                                                       # If there are triangles available.
+        vec = Neighbors.Triangulation(p, tt, nvec)                                  # Neighbor search with the proper routine.
+    else:                                                                           # If there are no triangles available.
+        vec = Neighbors.Cloud(p, nvec)                                              # Neighbor search with the proper routine.
+
+     # Computation of Gamma values
+    L = np.vstack([[0], [0], [2*cdt], [0], [2*cdt]])                                # The values of the differential operator are assigned.
+    K = Gammas.Cloud(p, vec, L)                                                     # K computation with the required Gammas.
+
+    if implicit == False:                                                           # For the explicit scheme.
+        K1 = (np.identity(m) + (1/2)*K)                                             # Explicit formulation of K for k = 1.
+        K2 = (2*np.identity(m) + K)                                                 # Explicit formulation of K for k = 2,...,t.
+    else:                                                                           # For the implicit scheme.
+        K1 = np.linalg.pinv(np.identity(m) - (1-lam)*(1/2)*K)                       # Implicit formulation of K for k = 1.
+        K2 = (np.identity(m) + lam*(1/2)*K)
+        K3 = np.linalg.pinv(np.identity(m) - (1-lam)*K)                             # Implicit formulation of K for k = 2,...,t.
+        K4 = (2*np.identity(m) + lam*K)
+    
+    start = time.time()
+
+    # A Generalized Finite Differences Method
+    ## Second time step computation.
+    for k in np.arange(1,t):                                                        # For k = 1.
+        if k == 1:
+            un = K1@(K2@u_ap[:,k-1] + dt*g(p[:,0], p[:,1], T[k], c, cho, r))        # The new time-level is computed.
+            u_ap[inne_n, k] = un[inne_n]
+        else:
+            un = K3@(K4@u_ap[:,k-1] - u_ap[:,k-2])                                  # The new time-level is computed.
+            u_ap[inne_n,k] = un[inne_n]                                             # Save the computed solution.                
+    
+    end = time.time()
+
+    print('\tThe elapsed time of the optimized method was: ', end-start, 'seconds.')
+    # Theoretical Solution
+    for k in np.arange(t):                                                          # For all the time steps.
+        u_ex[:,k] = f(p[:,0], p[:,1], T[k], c, cho, r)                          # The theoretical solution is computed.
+
+    return u_ap, u_ex, vec
+
+def Cloud_old(p, f, g, t, c, cho, r, triangulation = False, tt = [], implicit = False, lam = 0.5):
     """
     2D Wave Equation implemented on Unstructured Clouds of Points
     
@@ -114,7 +173,7 @@ def Cloud(p, f, g, t, c, cho, r, triangulation = False, tt = [], implicit = Fals
 
     end = time.time()
 
-    print('\tThe elapsed time of the method was: ', end-start, 'seconds.')
+    print('\tThe elapsed time of the original method was: ', end-start, 'seconds.')
     # Theoretical Solution
     for k in np.arange(t):                                                          # For all the time steps.
         for i in np.arange(m):                                                      # For each of the nodes.

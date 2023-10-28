@@ -49,8 +49,8 @@ def Mesh(x, y, u_ap, u_ex):
     Output:
         er          t x 1           Array           Mean square error computed on each time step.
     """
-    m = len(x[:,0])                                                                 # The number of nodes in x.
-    n = len(x[0,:])                                                                 # The number of nodes in y.
+    m    = len(x[:,0])                                                              # The number of nodes in x.
+    n    = len(x[0,:])                                                              # The number of nodes in y.
     t    = len(u_ap[0,0,:])                                                         # The number of time steps is found.
     er   = np.zeros(t)                                                              # er initialization with zeros.
     area = np.zeros([m,n])                                                          # area initialization with zeros.
