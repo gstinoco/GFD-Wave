@@ -45,6 +45,7 @@ sizes = [1,2,3]
 
 fWAV = lambda x, y, t, c, cho, r: np.cos(np.sqrt(2)*np.pi*c*t)*np.sin(np.pi*x)*np.sin(np.pi*y)
 gWAV = lambda x, y, t, c, cho, r: 0
+r    = np.array([0, 0])
 
 # Clouds or Holes
 Holes = False
@@ -54,8 +55,6 @@ for reg in regions:
         cloud = str(me)
 
         print('Region: ' + reg + ', with size: ' + cloud)
-        
-        r = np.array([0, 0])
 
         # Number of Time Steps
         t = 1000
@@ -75,7 +74,7 @@ for reg in regions:
         # Wave Equation in 2D computed on a unstructured cloud of points.
         u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, implicit=True, triangulation=True, tt=tt, lam=0.75)
         er1 = Errors.Cloud(p, vec, u_ap, u_ex)
-        #Graph.Cloud_Transient(p, tt, u_ap, u_ex)
+        Graph.Cloud_Transient(p, tt, u_ap, u_ex)
         mdic = {'u_ap': u_ap, 'u_ex': u_ex, 'p': p, 'tt': tt}
         
         if Holes:

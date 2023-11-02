@@ -45,6 +45,7 @@ sizes = [1,2,3]
 
 fWAV = lambda x, y, t, c, cho, r: np.cos(np.pi*t)*np.sin(np.pi*(x+y))
 gWAV = lambda x, y, t, c, cho, r: 0
+r    = np.array([0, 0])
 
 # Clouds or Holes
 Holes = False
@@ -54,8 +55,6 @@ for reg in regions:
         cloud = str(me)
 
         print('Region: ' + reg + ', with size: ' + cloud)
-        
-        r = np.array([0, 0])
 
         # Number of Time Steps
         t = 1000
