@@ -18,6 +18,7 @@ Last Modification:
 
 import os
 import numpy as np
+import tarfile
 from scipy.io import loadmat
 from scipy.io import savemat
 import Scripts.Graph as Graph
@@ -31,7 +32,7 @@ c = 1
 cho = 0
 
 # Names of the regions
-regions = ['CUA','ENG','HAB','PAT']
+regions = ['CAB','CUA','CUI','DOW','ENG','GIB','HAB','MIC','PAT','ZIR']
 
 # Sizes of the clouds
 sizes = [1,2,3]
@@ -52,14 +53,26 @@ Holes = False
 for reg in regions:
 
     # Initial Drop
+    if reg == 'CAB':
+        r = np.array([0.5, 0.6])
     if reg == 'CUA':
-        r = np.array([0.7, 0.7])
+        r = np.array([0.7, 0.5])
+    if reg == 'CUI':
+        r = np.array([0.4, 0.6])
+    if reg == 'DOW':
+        r = np.array([0.4, 0.6])
     if reg == 'ENG':
-        r = np.array([0.3, 0.5])
+        r = np.array([0.7, 0.2])
+    if reg == 'GIB':
+        r = np.array([0.2, 0.4])
     if reg == 'HAB':
         r = np.array([0.8, 0.8])
+    if reg == 'MIC':
+        r = np.array([0.3, 0.3])
     if reg == 'PAT':
         r = np.array([0.8, 0.8])
+    if reg == 'ZIR':
+        r = np.array([0.7, 0.5])
 
     for me in sizes:
         cloud = str(me)
@@ -90,16 +103,24 @@ for reg in regions:
             if not os.path.exists(folder):
                 os.makedirs(folder)
             Graph.Cloud_Transient_sav_1(p, tt, u_ap, folder + '/' + reg + '_' + cloud + '.mp4')
-            savemat(folder + '/' + reg + '_' + cloud + '.mat', mdic)
+            file_n = folder + '/' + reg + '_' + cloud + '.mat'
+            savemat(file_n, mdic)
+            make_tarfile(file_n + '.tar.gz', file_n)
         else:
             folder = 'Results/Example 3/Clouds/' + reg
             if not os.path.exists(folder):
                 os.makedirs(folder)
             Graph.Cloud_Transient_sav_1(p, tt, u_ap, folder + '/' + reg + '_' + cloud + '.mp4')
-            savemat(folder + '/' + reg + '_' + cloud + '.mat', mdic)
+            file_n = folder + '/' + reg + '_' + cloud + '.mat'
+            savemat(file_n, mdic)
+            make_tarfile(file_n + '.tar.gz', file_n)
 
 # Clouds or Holes
 Holes = True
+
+def make_tarfile(output_filename, source_file):
+    with tarfile.open(output_filename, "w:gz") as tar:
+        tar.add(source_file)
 
 for reg in regions:
 
@@ -142,10 +163,14 @@ for reg in regions:
             if not os.path.exists(folder):
                 os.makedirs(folder)
             Graph.Cloud_Transient_sav_1(p, tt, u_ap, folder + '/' + reg + '_' + cloud + '.mp4')
-            savemat(folder + '/' + reg + '_' + cloud + '.mat', mdic)
+            file_n = folder + '/' + reg + '_' + cloud + '.mat'
+            savemat(file_n, mdic)
+            make_tarfile(file_n + '.tar.gz', file_n)
         else:
             folder = 'Results/Example 3/Clouds/' + reg
             if not os.path.exists(folder):
                 os.makedirs(folder)
             Graph.Cloud_Transient_sav_1(p, tt, u_ap, folder + '/' + reg + '_' + cloud + '.mp4')
-            savemat(folder + '/' + reg + '_' + cloud + '.mat', mdic)
+            file_n = folder + '/' + reg + '_' + cloud + '.mat'
+            savemat(file_n, mdic)
+            make_tarfile(file_n + '.tar.gz', file_n)

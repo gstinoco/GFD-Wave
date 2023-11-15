@@ -62,4 +62,7 @@ __*
 .vscode
 __pycache__
 
+# Big .mat files
+Results/*.mat
+
 # On going
