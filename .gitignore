@@ -63,6 +63,7 @@ __*
 __pycache__
 
 # Big .mat files
-Results/*.mat
+*Results/*.mat
+*Results/*.tar.gz
 
 # On going

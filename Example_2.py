@@ -32,10 +32,10 @@ c = 1
 cho = 1
 
 # Names of the regions
-regions = ['CAB','CUA','CUI','DOW','ENG','GIB','HAB','MIC','PAT','ZIR']
+regions = ['CAB', 'CUA', 'CUI', 'DOW', 'ENG', 'GIB', 'HAB', 'MIC', 'PAT', 'ZIR']
 
 # Sizes of the clouds
-sizes = [1,2,3]
+sizes = [1, 2, 3]
 
 # Boundary conditions
 # The boundary conditions are defined as
@@ -79,7 +79,7 @@ for reg in regions:
         # Wave Equation in 2D computed on a unstructured cloud of points.
         u_ap, u_ex, vec = Wave_2D.Cloud(p, fWAV, gWAV, t, c, cho, r, implicit=True, triangulation=True, tt=tt, lam=0.75)
         er1 = Errors.Cloud(p, vec, u_ap, u_ex)
-        Graph.Cloud_Transient(p, tt, u_ap, u_ex)
+        #Graph.Cloud_Transient(p, tt, u_ap, u_ex)
         mdic = {'u_ap': u_ap, 'u_ex': u_ex, 'p': p, 'tt': tt}
         
         if Holes:
@@ -88,18 +88,18 @@ for reg in regions:
                 os.makedirs(folder)
             Graph.Cloud_Static_sav(p, tt, u_ap, u_ex, folder + '/' + reg + '_' + cloud)
             Graph.Cloud_Transient_sav(p, tt, u_ap, u_ex, folder + '/' + reg + '_' + cloud + '.mp4')
-            file_n = folder + '/' + reg + '_' + cloud + '.mat'
-            savemat(file_n, mdic)
-            make_tarfile(file_n + '.tar.gz', file_n)
+            #file_n = folder + '/' + reg + '_' + cloud + '.mat'
+            #savemat(file_n, mdic)
+            #make_tarfile(file_n + '.tar.gz', file_n)
         else:
             folder = 'Results/Example 2/Clouds/' + reg
             if not os.path.exists(folder):
                 os.makedirs(folder)
             Graph.Cloud_Static_sav(p, tt, u_ap, u_ex, folder + '/' + reg + '_' + cloud)
             Graph.Cloud_Transient_sav(p, tt, u_ap, u_ex, folder + '/' + reg + '_' + cloud + '.mp4')
-            file_n = folder + '/' + reg + '_' + cloud + '.mat'
-            savemat(file_n, mdic)
-            make_tarfile(file_n + '.tar.gz', file_n)
+            #file_n = folder + '/' + reg + '_' + cloud + '.mat'
+            #savemat(file_n, mdic)
+            #make_tarfile(file_n + '.tar.gz', file_n)
 
         print('\tThe mean square error with the implicit scheme (0.75) is: ', er1.mean())
         print('\tThe last square error with the implicit scheme (0.75) is: ', er1[-1])
@@ -142,18 +142,18 @@ for reg in regions:
                 os.makedirs(folder)
             Graph.Cloud_Static_sav(p, tt, u_ap, u_ex, folder + '/' + reg + '_' + cloud)
             Graph.Cloud_Transient_sav(p, tt, u_ap, u_ex, folder + '/' + reg + '_' + cloud + '.mp4')
-            file_n = folder + '/' + reg + '_' + cloud + '.mat'
-            savemat(file_n, mdic)
-            make_tarfile(file_n + '.tar.gz', file_n)
+            #file_n = folder + '/' + reg + '_' + cloud + '.mat'
+            #savemat(file_n, mdic)
+            #make_tarfile(file_n + '.tar.gz', file_n)
         else:
             folder = 'Results/Example 2/Clouds/' + reg
             if not os.path.exists(folder):
                 os.makedirs(folder)
             Graph.Cloud_Static_sav(p, tt, u_ap, u_ex, folder + '/' + reg + '_' + cloud)
             Graph.Cloud_Transient_sav(p, tt, u_ap, u_ex, folder + '/' + reg + '_' + cloud + '.mp4')
-            file_n = folder + '/' + reg + '_' + cloud + '.mat'
-            savemat(file_n, mdic)
-            make_tarfile(file_n + '.tar.gz', file_n)
+            #file_n = folder + '/' + reg + '_' + cloud + '.mat'
+            #savemat(file_n, mdic)
+            #make_tarfile(file_n + '.tar.gz', file_n)
 
         print('\tThe mean square error with the implicit scheme (0.75) is: ', er1.mean())
         print('\tThe last square error with the implicit scheme (0.75) is: ', er1[-1])
