@@ -3,16 +3,16 @@ Generalized Finite Differences Methods for numerically solve Wave Equation on hi
 
 All the codes are distributed under MIT License on [GitHub](https://github.com/gstinoco/GFD-Wave) and are free to use, modify, and distribute giving the proper copyright notice.
 
-![Approximate and Theoretical solutions of the problem on ZIR region](/Results/Example%201/Clouds/ENG/ENG_3_05.png)
+![Approximate and Theoretical solutions of the problem on ENG region](/Results/Example%201/Clouds/ENG/ENG_3_05.png)
 
 ## Description :memo:
 This repository proposes a way to achieve approximations to Wave Equation in two dimensions over regions that can range from regular (CUA) to highly irregular (ENG).
 
 For this, the proposed solution uses a Generalized Finite Differences Method for the numerical solution over all the regions on unstructured clouds of points.
 
-Havana Cloud of Points With Holes                             | Havana Cloud of Points
+England Cloud of Points With Holes                            | England Cloud of Points
 :------------------------------------------------------------:|:------------------------------------------------------------:
-![Havana Bay Cloud of Points](/Data/Holes/ENG_3.png)          | ![Havana Bay Cloud of Points](/Data/Clouds/ENG_3.png)
+![England Bay Cloud of Points](/Data/Holes/ENG_3.png)         | ![England Bay Cloud of Points](/Data/Clouds/ENG_3.png)
 
 
 It is possible to find all test data in the "Data" folder and some sample results in the "Results" folder.
