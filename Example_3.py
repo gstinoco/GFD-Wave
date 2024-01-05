@@ -32,10 +32,10 @@ c = 1
 cho = 0
 
 # Names of the regions
-regions = ['CAB', 'CUA', 'CUI', 'DOW', 'ENG', 'GIB', 'HAB', 'MIC', 'PAT', 'ZIR']
+regions = ['PAT']
 
 # Sizes of the clouds
-sizes = [1, 2, 3]
+sizes = [3]
 
 # Boundary conditions
 # The boundary conditions are defined as
@@ -106,7 +106,7 @@ for reg in regions:
             folder = 'Results/Example 3/Holes/' + reg
             if not os.path.exists(folder):
                 os.makedirs(folder)
-            Graph.Cloud_Transient_sav_1(p, tt, u_ap, folder + '/' + reg + '_' + cloud + '.mp4')
+            #Graph.Cloud_Transient_sav_1(p, tt, u_ap, folder + '/' + reg + '_' + cloud + '.mp4')
             #file_n = folder + '/' + reg + '_' + cloud + '.mat'
             #savemat(file_n, mdic)
             #make_tarfile(file_n + '.tar.gz', file_n)
@@ -114,7 +114,7 @@ for reg in regions:
             folder = 'Results/Example 3/Clouds/' + reg
             if not os.path.exists(folder):
                 os.makedirs(folder)
-            Graph.Cloud_Transient_sav_1(p, tt, u_ap, folder + '/' + reg + '_' + cloud + '.mp4')
+            #Graph.Cloud_Transient_sav_1(p, tt, u_ap, folder + '/' + reg + '_' + cloud + '.mp4')
             #file_n = folder + '/' + reg + '_' + cloud + '.mat'
             #savemat(file_n, mdic)
             #make_tarfile(file_n + '.tar.gz', file_n)
@@ -178,7 +178,7 @@ for reg in regions:
             folder = 'Results/Example 3/Holes/' + reg
             if not os.path.exists(folder):
                 os.makedirs(folder)
-            Graph.Cloud_Transient_sav_1(p, tt, u_ap, folder + '/' + reg + '_' + cloud + '.mp4')
+            #Graph.Cloud_Transient_sav_1(p, tt, u_ap, folder + '/' + reg + '_' + cloud + '.mp4')
             #file_n = folder + '/' + reg + '_' + cloud + '.mat'
             #savemat(file_n, mdic)
             #make_tarfile(file_n + '.tar.gz', file_n)
@@ -186,7 +186,7 @@ for reg in regions:
             folder = 'Results/Example 3/Clouds/' + reg
             if not os.path.exists(folder):
                 os.makedirs(folder)
-            Graph.Cloud_Transient_sav_1(p, tt, u_ap, folder + '/' + reg + '_' + cloud + '.mp4')
+            #Graph.Cloud_Transient_sav_1(p, tt, u_ap, folder + '/' + reg + '_' + cloud + '.mp4')
             #file_n = folder + '/' + reg + '_' + cloud + '.mat'
             #savemat(file_n, mdic)
             #make_tarfile(file_n + '.tar.gz', file_n)
